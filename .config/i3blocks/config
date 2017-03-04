@@ -1,0 +1,85 @@
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+command=/usr/lib/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+[disk]
+label=
+instance=/
+interval=30
+separator=false
+
+[disk]
+label=
+instance=/home
+interval=30
+
+# CPU usage
+#
+# The script may be called with -w and -c switches to specify thresholds,
+# see the script for details.
+[cpu_usage]
+label= 
+interval=1
+min_width= 100.00%
+align=center
+separator=false
+
+[memory]
+separator=false
+interval=5
+
+[temperature]
+command=/usr/lib/i3blocks/temperature --chip coretemp-isa-0000
+interval=5
+separator=true
+
+[bandwidth]
+command=/home/nicolas/.config/i3blocks/bandwidth
+label= 
+instance=enp0s25
+interval=1
+min_width= 1024K  1024K
+align=center
+
+[bandwidth]
+command=/home/nicolas/.config/i3blocks/bandwidth
+label= 
+instance=wlp4s0
+interval=1
+separator=false
+min_width= 1024K  1024K 
+align=center
+
+
+[wifi]
+command=.config/i3blocks/wifi
+instance=wlp4s0
+interval=2
+separator=true
+
+[bluetooth]
+command=.config/i3blocks/bluetooth
+interval=2
+separator=true
+
+[battery]
+#label=BAT
+label= 
+#instance=1
+interval=10
+
+[volume]
+label=
+instance=Master
+#instance=PCM
+interval=once
+signal=1
+
+[date]
+command=.config/i3blocks/date
+interval=1
+#label=
