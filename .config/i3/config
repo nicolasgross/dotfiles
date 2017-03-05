@@ -184,6 +184,7 @@ bindsym XF86AudioMicMute exec "amixer -q -D pulse set Capture toggle"
 bindsym XF86Search exec "playerctl play-pause"
 bindsym XF86LaunchA exec "playerctl previous"
 bindsym XF86Explorer exec "playerctl next"
+bindsym XF86HomePage exec "playerctl next"
 
 # (dis)connect external displays
 bindcode 235 exec "/usr/local/bin/detect-displays-dialog"
@@ -256,3 +257,4 @@ exec nextcloud
 exec battery-warning
 exec xset -dpms
 exec xset s off
+exec nm-applet
