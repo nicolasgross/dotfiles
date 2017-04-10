@@ -117,16 +117,16 @@ set $ws9 "9: "
 set $ws10 "10: "
 
 # assign workspaces to monitors
-workspace $ws1 output eDP-1
-workspace $ws2 output eDP-1
-workspace $ws3 output eDP-1
-workspace $ws4 output eDP-1
-workspace $ws5 output eDP-1
-workspace $ws6 output eDP-1
-workspace $ws7 output eDP-1
-workspace $ws8 output eDP-1
-workspace $ws9 output VGA-1
-workspace $ws10 output HDMI-1
+workspace $ws1 output eDP1
+workspace $ws2 output eDP1
+workspace $ws3 output eDP1
+workspace $ws4 output eDP1
+workspace $ws5 output eDP1
+workspace $ws6 output eDP1
+workspace $ws7 output eDP1
+workspace $ws8 output eDP1
+workspace $ws9 output VGA1
+workspace $ws10 output HDMI1
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -171,8 +171,8 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
 # brightness buttons
-#bindsym XF86MonBrightnessDown exec xbacklight -dec 7
-#bindsym XF86MonBrightnessUp exec xbacklight -inc 7
+bindsym XF86MonBrightnessDown exec xbacklight -dec 7
+bindsym XF86MonBrightnessUp exec xbacklight -inc 7
 
 # sound control
 bindsym XF86AudioLowerVolume exec "amixer -q -D pulse set Master 5%- unmute ; pkill -RTMIN+1 i3blocks"
