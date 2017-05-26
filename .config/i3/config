@@ -16,7 +16,7 @@ set $mod Mod4
 font pango:Noto Sans 8
 
 # Disable window title bar
-#for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 2
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -45,8 +45,8 @@ bindsym $mod+Return exec konsole
 bindsym $mod+Shift+q kill
 
 # colours
-set $bg-color            #2f343f
-set $inactive-bg-color   #2f343f
+set $bg-color            #1d8df5
+set $inactive-bg-color   #31363b
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
@@ -221,23 +221,20 @@ hide_edge_borders both
 #	}
 #}
 
-for_window [class="yakuake"] floating enable;
-
 ## Plasma Integration
 # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everythiing)
-#exec --no-startup-id wmctrl -c Plasma
+exec --no-startup-id wmctrl -c Plasma
 for_window [title="Desktop — Plasma"] kill; floating enable; border none
 
 ## Avoid tiling popups, dropdown windows from plasma
 # for the first time, manually resize them, i3 will remember the setting for floating windows
-for_window [class="plasmashell"] floating enable;
-for_window [class="Plasma"] floating enable; border none
-for_window [title="plasma-desktop"] floating enable; border none
-for_window [class="krunner"] floating enable; border enable;
-for_window [class="Kmix"] floating enable; border none
-for_window [class="Klipper"] floating enable; border none
-for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="plasmashell"] floating enable
+for_window [class="Plasma"] floating enable
+for_window [title="plasma-desktop"] floating enable
+for_window [class="krunner"] floating enable
+for_window [class="Kmix"] floating enable
+for_window [class="Klipper"] floating enable
+for_window [class="Plasmoidviewer"] floating enable
 
-#exec --no-startup-id feh --bg-scale /usr/share/pixmaps/wallpaper/AZZKMkC.jpg
-exec --no-startup-id compton --config ~/.config/compton.conf -b
+exec --no-startup-id xcompmgr -cf -D 3 &
 
