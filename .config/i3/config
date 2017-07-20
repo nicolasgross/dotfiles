@@ -237,3 +237,4 @@ for_window [class="Klipper"] floating enable
 for_window [class="Plasmoidviewer"] floating enable
 
 exec --no-startup-id compton --config /home/nicolas/.config/compton.conf -b
+exec --no-startup-id feh --bg-scale /usr/share/pixmaps/wallpaper/AZZKMkC.jpg
