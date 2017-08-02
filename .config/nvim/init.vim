@@ -14,7 +14,7 @@ if dein#load_state('/home/nicolas/.config/nvim/dein')
 		\{'on_ft': ['c', 'cpp']})
 	call dein#add('eagletmt/neco-ghc',
 		\{'on_ft': 'haskell'})
-	call dein#add('suan/vim-instant-markdown',
+	call dein#add('shime/vim-livedown',
 		\{'on_ft': 'markdown'})
 	call dein#add('lervag/vimtex',
 		\{'on_ft': ['latex', 'tex']})
@@ -52,8 +52,8 @@ set list
 set termguicolors
 set colorcolumn=81
 highlight ColorColumn ctermbg=darkgrey
-set guicursor=n-v-c:block-Cursor/lCursor-blinkon1,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,o:hor20-Cursor/block-Cursor
-au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon0
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor-blinkon1,r-cr:hor20-Cursor/lCursor,o:hor20-Cursor/block-Cursor
+au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon1
 tnoremap <Esc> <C-\><C-n>
 set clipboard=unnamedplus
 au FileType haskell setl et tabstop=2 softtabstop=2 shiftwidth=2
@@ -95,6 +95,12 @@ let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol="⚠"
+
+"livedown
+let g:livedown_autorun=1
+let g:livedown_open = 1
+let g:livedown_port = 8090
+let g:livedown_browser = "firefox"
 
 "vim-leader-guide
 let mapleader="\<Space>"
