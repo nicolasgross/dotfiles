@@ -12,9 +12,13 @@ if dein#load_state('/home/nicolas/.config/nvim/dein')
 		\{'on_i': 1})
 	call dein#add('zchee/deoplete-clang',
 		\{'on_ft': ['c', 'cpp']})
+	call dein#add('Shougo/neoinclude.vim',
+		\{'on_ft': ['c', 'cpp']})
 	call dein#add('eagletmt/neco-ghc',
 		\{'on_ft': 'haskell'})
-	call dein#add('shime/vim-livedown',
+	call dein#add('euclio/vim-markdown-composer',
+		\{'on_ft': 'markdown'})
+	call dein#add('jtratner/vim-flavored-markdown',
 		\{'on_ft': 'markdown'})
 	call dein#add('lervag/vimtex',
 		\{'on_ft': ['latex', 'tex']})
@@ -53,9 +57,9 @@ set termguicolors
 set colorcolumn=81
 highlight ColorColumn ctermbg=darkgrey
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor-blinkon1,r-cr:hor20-Cursor/lCursor,o:hor20-Cursor/block-Cursor
-au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon1
+au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
 tnoremap <Esc> <C-\><C-n>
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 au FileType haskell setl et tabstop=2 softtabstop=2 shiftwidth=2
 au FileType cabal setl et
 au FileType yaml setl et tabstop=2 softtabstop=2 shiftwidth=2
@@ -65,20 +69,20 @@ colorscheme gruvbox
 set background=dark
 
 "airline
-let g:airline_powerline_fonts=1
 set laststatus=2
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts = 1
 let g:airline_theme='gruvbox'
-let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#enabled = 1
 
 "deoplete
-let g:deoplete#enable_at_startup=1
+let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 "deoplete-clang
-let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header='/usr/lib/clang'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+let g:deoplete#sources#clang#clang_complete_database = 'bin'
 
 "neco-ghc
 let g:haskellmode_completion_ghc = 0
@@ -96,11 +100,11 @@ let g:syntastic_check_on_wq=0
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol="⚠"
 
-"livedown
-let g:livedown_autorun=1
-let g:livedown_open = 1
-let g:livedown_port = 8090
-let g:livedown_browser = "firefox"
+"vim-flavored-markdown
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
 
 "vim-leader-guide
 let mapleader="\<Space>"
