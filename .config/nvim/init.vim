@@ -16,10 +16,6 @@ if dein#load_state('/home/nicolas/.config/nvim/dein')
 		\{'on_ft': ['c', 'cpp']})
 	call dein#add('eagletmt/neco-ghc',
 		\{'on_ft': 'haskell'})
-	call dein#add('euclio/vim-markdown-composer',
-		\{'on_ft': 'markdown'})
-	call dein#add('jtratner/vim-flavored-markdown',
-		\{'on_ft': 'markdown'})
 	call dein#add('lervag/vimtex',
 		\{'on_ft': ['latex', 'tex']})
 	call dein#add('vim-syntastic/syntastic')
@@ -82,7 +78,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-let g:deoplete#sources#clang#clang_complete_database = 'bin'
+let g:deoplete#sources#clang#clang_complete_database = 'bin/'
 
 "neco-ghc
 let g:haskellmode_completion_ghc = 0
@@ -99,12 +95,6 @@ let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol="⚠"
-
-"vim-flavored-markdown
-augroup markdown
-    au!
-    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
-augroup END
 
 "vim-leader-guide
 let mapleader="\<Space>"
