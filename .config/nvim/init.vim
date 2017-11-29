@@ -29,7 +29,7 @@ if dein#load_state('/home/nicolas/.config/nvim/dein')
 	call dein#add('hecal3/vim-leader-guide')
 	call dein#add('Raimondi/delimitMate',
 		\{'on_i': 1})
-	"call dein#add('vim-scripts/Smart-Tabs')
+	call dein#add('vim-scripts/Smart-Tabs')
 
 	call dein#end()
 	call dein#save_state()
@@ -72,7 +72,6 @@ let g:airline#extensions#tabline#enabled = 1
 
 "deoplete
 let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 "deoplete-clang
@@ -95,6 +94,7 @@ let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol="⚠"
+let g:syntastic_python_python_exec = '/usr/bin/python3'
 
 "vim-leader-guide
 let mapleader="\<Space>"
