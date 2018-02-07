@@ -16,20 +16,13 @@ if dein#load_state('/home/nicolas/.config/nvim/dein')
 		\{'on_ft': ['c', 'cpp']})
 	call dein#add('eagletmt/neco-ghc',
 		\{'on_ft': 'haskell'})
-	call dein#add('lervag/vimtex',
-		\{'on_ft': ['latex', 'tex']})
-	call dein#add('vim-syntastic/syntastic')
-
+	call dein#add('neomake/neomake')
+	call dein#add('vim-scripts/Smart-Tabs')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('morhetz/gruvbox')
 	call dein#add('scrooloose/nerdtree',
 		\{'on_cmd': 'NERDTreeToggle'})
-	call dein#add('ctrlpvim/ctrlp.vim',
-		\{'on_cmd': 'CtrlP'})
 	call dein#add('hecal3/vim-leader-guide')
-	call dein#add('Raimondi/delimitMate',
-		\{'on_i': 1})
-	call dein#add('vim-scripts/Smart-Tabs')
 
 	call dein#end()
 	call dein#save_state()
@@ -44,31 +37,22 @@ set showmatch
 set mouse=a
 set number
 set omnifunc=syntaxcomplete#Complete
-set tabstop=4 softtabstop=4 shiftwidth=4
-set cindent
-set cinoptions=(0,u0,U0
 set autoindent
 set list
 set termguicolors
 set colorcolumn=81
 highlight ColorColumn ctermbg=darkgrey
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor-blinkon1,r-cr:hor20-Cursor/lCursor,o:hor20-Cursor/block-Cursor
-au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
-tnoremap <Esc> <C-\><C-n>
+au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon0
 set clipboard+=unnamedplus
 au FileType haskell setl et tabstop=2 softtabstop=2 shiftwidth=2
 au FileType cabal setl et
 au FileType yaml setl et tabstop=2 softtabstop=2 shiftwidth=2
 
-"gruvbox
-colorscheme gruvbox
-set background=dark
-
-"airline
-set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline_theme='gruvbox'
-let g:airline#extensions#tabline#enabled = 1
+"fzf
+set rtp+=~/.fzf
+let g:fzf_layout = { 'down': '~20%' }
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 "deoplete
 let g:deoplete#enable_at_startup = 1
@@ -77,26 +61,37 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-let g:deoplete#sources#clang#clang_complete_database = 'bin/'
+"let g:deoplete#sources#clang#clang_complete_database = 'bin/'
 
 "neco-ghc
 let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 let g:necoghc_enable_detailed_browse = 1
 
-"syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_error_symbol="✗"
-let g:syntastic_warning_symbol="⚠"
-let g:syntastic_python_python_exec = '/usr/bin/python3'
+"neomake
+call neomake#configure#automake('rw', 0)
+let g:neomake_open_list = 2
+
+"gruvbox
+colorscheme gruvbox
+set background=dark
+
+"ctrlp
+let g:ctrlp_show_hidden = 1
+
+"smart tabs
+set noet tabstop=4 softtabstop=0 shiftwidth=4
+set cindent
+set cinoptions=(0,u0,U0
+
+"airline
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 1
 
 "vim-leader-guide
+nnoremap <c-w> <Space> 
 let mapleader="\<Space>"
 call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
@@ -117,8 +112,7 @@ let g:lmap.b={'name': '+buffers',
 	\'Y': ['%y', 'copy-whole-buffer-to-clipboard'],
 	\}
 let g:lmap.f={'name': '+files',
-	\'c': ['SyntasticCheck', 'check-for-errors'],
-	\'f': ['CtrlP', 'counsel-find-file'],
+	\'f': ['FZF ~', 'counsel-find-file'],
 	\'t': ['NERDTreeToggle', 'toggle-file-tree'],
 	\'s': ['w', 'save-buffer'],
 	\'S': ['bufdo w', 'save-all-buffers'],
@@ -128,26 +122,27 @@ let g:lmap.q={'name': '+quit',
 	\'Q': ['qa!', 'kill-vim'],
 	\}
 let g:lmap.t={'name': '+toggles',
-	\'e': ['SyntasticToggleMode', 'error-checking'],
+	\'l': ['NeomakeToggleBuffer', 'linting'],
 	\'n': ['setlocal number!', 'line-numbers'],
 	\'r': ['setlocal relativenumber!', 'relative-line-numbers'],
 	\}
 let g:lmap.w={'name': '+windows',
 	\'=': ['wincmd =', 'balance-windows'],
-	\'d': ['q', 'delete-window'],
-	\'D': ['q!', 'ace-delete-window'],
-	\'h': ['wincmd h', 'window-left'],
-	\'H': ['wincmd H', 'window-far-left'],
-	\'j': ['wincmd j', 'window-down'],
-	\'J': ['wincmd J', 'window-very-bottom'],
-	\'k': ['wincmd k', 'window-up'],
-	\'K': ['wincmd K', 'window-very-top'],
-	\'l': ['wincmd l', 'window-left'],
-	\'L': ['wincmd L', 'window-far-left'],
+	\'c': ['q', 'delete-window'],
+	\'C': ['q!', 'ace-delete-window'],
+	\'h': ['wincmd h', 'focus-window-left'],
+	\'H': ['wincmd H', 'move-window-left'],
+	\'j': ['wincmd j', 'focus-window-down'],
+	\'J': ['wincmd J', 'move-window-down'],
+	\'k': ['wincmd k', 'focus-window-up'],
+	\'K': ['wincmd K', 'move-window-up'],
+	\'l': ['wincmd l', 'focus-window-right'],
+	\'L': ['wincmd L', 'move-window-right'],
+	\'p': ['wincmd p', 'focus-previous-window'],
 	\'s': ['split', 'split-window-below'],
 	\'S': ['split\|wincmd w', 'split-window-below-and-focus'],
 	\'v': ['vsplit', 'split-window-right'],
 	\'V': ['vsplit\|wincmd w', 'split-window-right-and-focus'],
-	\'w': ['wincmd w', 'other-window'],
+	\'w': ['wincmd w', 'next-window'],
 	\}
 

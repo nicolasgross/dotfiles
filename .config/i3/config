@@ -222,6 +222,7 @@ bar {
         status_command i3blocks -c /home/nicolas/.config/i3blocks/i3blocks.conf
 }
 
+exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
 exec --no-startup-id feh --bg-scale ~/pictures/Yo1TIhX.jpg
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id compton --config ~/.config/compton.conf -b
