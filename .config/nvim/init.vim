@@ -22,12 +22,15 @@ if dein#load_state('/home/nicolas/.config/nvim/dein')
 	call dein#add('itchyny/lightline.vim')
 	call dein#add('bling/vim-bufferline')
 	call dein#add('morhetz/gruvbox')
+	call dein#add('lifepillar/vim-solarized8')
 	call dein#add('scrooloose/nerdtree',
 		\{'on_cmd': 'NERDTreeToggle'})
 	call dein#add('hecal3/vim-leader-guide')
 	call dein#add('junegunn/fzf.vim')
 	call dein#add('Valloric/ListToggle')
 	call dein#add('vimwiki/vimwiki')
+	call dein#add('justinmk/vim-syntax-extra')
+	call dein#add('jreybert/vimagit')
 
 	call dein#end()
 	call dein#save_state()
@@ -42,6 +45,7 @@ set number
 set omnifunc=syntaxcomplete#Complete
 set autoindent
 set list
+set cursorline
 set incsearch ignorecase smartcase
 set termguicolors
 set colorcolumn=81
@@ -54,18 +58,25 @@ au FileType cabal setl et
 au FileType yaml setl et tabstop=2 softtabstop=2 shiftwidth=2
 
 "fzf
-set rtp+=~/.fzf
+set rtp+=/usr/share/vim/vimfiles
 let g:fzf_layout = { 'down': '~20%' }
 let $FZF_DEFAULT_COMMAND = 'rg --hidden --files --glob !.git'
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 "deoplete
 let g:deoplete#enable_at_startup = 1
-set completeopt=longest,menuone
+autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
+set completeopt=noselect,noinsert,menuone,preview
 imap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 imap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-imap <expr><Esc> pumvisible() ? "\<C-e>\<Esc>" : "\<Esc>"
+imap <silent><Esc><C-r> pumvisible() ? "\<C-y>" : "\<Esc>"<CR>
 
 "deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
@@ -79,7 +90,7 @@ let g:necoghc_enable_detailed_browse = 1
 "neomake
 call neomake#configure#automake('rw', 0)
 
-"gruvbox
+"colorscheme
 colorscheme gruvbox
 set background=dark
 
@@ -90,7 +101,7 @@ set cinoptions=(0,u0,U0
 
 "lightline
 let g:lightline = {
-	\ 'colorscheme': 'one',
+	\ 'colorscheme': 'powerline',
 	\ 'tabline': {
 	\   'left': [ ['bufferline'] ]
 	\ },
@@ -112,8 +123,13 @@ let g:lt_location_list_toggle_map = '<leader>tl'
 let g:lt_quickfix_list_toggle_map = '<leader>tq'
 
 "vimwiki
-let g:vimwiki_list = [{'path': '~/nextcloud/documents/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_map_prefix = '<Leader>aw'
+let g:vimwiki_list = [{'path': '~/nextcloud/documents/vimwiki/',
+	\ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_map_prefix = '<Leader>v'
+
+"vimagit
+let g:magit_show_magit_mapping = '<leader>gc'
+autocmd User VimagitBufferInit call magit#commit_command("CC")
 
 "vim-leader-guide
 set timeoutlen=0
@@ -134,29 +150,43 @@ let g:lmap={}
 let g:lmap.a={'name': '+applications',
 	\'t': ['terminal', 'terminal'],
 	\}
-let g:lmap.a.w={'name': '+vimwiki'}
 let g:lmap.b={'name': '+buffers',
 	\'b': ['Buffers', 'buffers'],
-	\'d': ['bd', 'kill-this-buffer'],
-	\'D': ['bd!', 'ace-kill-this-buffer'],
-	\'e': ['ggdG', 'safe-erase-buffer'],
+	\'d': ['bd', 'kill-buffer'],
+	\'D': ['bd!', 'ace-kill-buffer'],
+	\'e': ['ggdG', 'erase-buffer'],
 	\'m': ['bufdo bd', 'kill-other-buffers'],
 	\'n': ['bn', 'next-buffer'],
 	\'N': ['enew', 'new-empty-buffer'],
 	\'p': ['bp', 'previous-buffer'],
-	\'s': ['w', 'save-buffer'],
-	\'S': ['bufdo w', 'save-all-buffers'],
 	\'Y': ['%y', 'copy-whole-buffer-to-clipboard'],
 	\}
 let g:lmap.f={'name': '+files',
-	\'f': ['Files ~', 'counsel-find-file'],
+	\'r': ['saveas', 'rename-file'],
+	\'s': ['w', 'save-file'],
+	\'S': ['bufdo w', 'save-all-files'],
 	\'t': ['NERDTreeToggle', 'toggle-file-tree'],
+	\}
+let g:lmap.f.i={'name': '+init.vim',
+	\'e': ['e $MYVIMRC', 'edit'],
+	\'r': ['so $MYVIMRC', 'reload'],
+	\}
+let g:lmap.g={'name': '+git',
+	\'c': ['Magit', 'commit'],
 	\}
 let g:lmap.q={'name': '+quit',
 	\'q': ['qa', 'prompt-kill-vim'],
 	\'Q': ['qa!', 'kill-vim'],
 	\}
+let g:lmap.s={'name': '+search',
+	\'c': ['Commands', 'commands'],
+	\'f': ['Files ~', 'counsel-find-file'],
+	\'g': ['Rg', 'grep'],
+	\'h': ['History:', 'command-history'],
+	\'s': ['Lines', 'search-in-file'],
+	\}
 let g:lmap.t={'name': '+toggles',
+	\'c': ['setlocal cursorline!', 'cursorline'],
 	\'e': ['NeomakeToggleBuffer', 'error-checking'],
 	\'h': ['set hlsearch!', 'search-highlighting'],
 	\'l': ['LToggle', 'location-list'],
@@ -164,11 +194,7 @@ let g:lmap.t={'name': '+toggles',
 	\'q': ['QToggle', 'quickfix-list'],
 	\'r': ['setlocal relativenumber!', 'relative-line-numbers'],
 	\}
-let g:lmap.s={'name': '+search',
-	\'c': ['Commands', 'commands'],
-	\'h': ['History:', 'command-history'],
-	\'s': ['Lines', 'search-file'],
-	\}
+let g:lmap.v={'name': '+vimwiki'}
 let g:lmap.w={'name': '+windows',
 	\'=': ['wincmd =', 'balance-windows'],
 	\'c': ['q', 'delete-window'],
