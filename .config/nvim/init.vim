@@ -58,7 +58,7 @@ au FileType cabal setl et
 au FileType yaml setl et tabstop=2 softtabstop=2 shiftwidth=2
 
 "fzf
-set rtp+=/usr/share/vim/vimfiles
+set runtimepath+=/usr/share/vim/vimfiles
 let g:fzf_layout = { 'down': '~20%' }
 let $FZF_DEFAULT_COMMAND = 'rg --hidden --files --glob !.git'
 command! -bang -nargs=* Rg
