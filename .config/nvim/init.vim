@@ -31,6 +31,8 @@ if dein#load_state('/home/nicolas/.config/nvim/dein')
 	call dein#add('vimwiki/vimwiki')
 	call dein#add('justinmk/vim-syntax-extra')
 	call dein#add('jreybert/vimagit')
+	call dein#add('lervag/vimtex',
+		\{'on_ft': ['tex', 'latex', 'plaintex']})
 
 	call dein#end()
 	call dein#save_state()
@@ -51,14 +53,13 @@ set termguicolors
 set colorcolumn=81
 highlight ColorColumn ctermbg=darkgrey
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor-blinkon1,r-cr:hor20-Cursor/lCursor,o:hor20-Cursor/block-Cursor
-au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon0
+au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
 set clipboard+=unnamedplus
-au FileType haskell setl et tabstop=2 softtabstop=2 shiftwidth=2
+au FileType haskell setl et
 au FileType cabal setl et
-au FileType yaml setl et tabstop=2 softtabstop=2 shiftwidth=2
+au FileType yaml setl et
 
 "fzf
-set runtimepath+=/usr/share/vim/vimfiles
 let g:fzf_layout = { 'down': '~20%' }
 let $FZF_DEFAULT_COMMAND = 'rg --hidden --files --glob !.git'
 command! -bang -nargs=* Rg

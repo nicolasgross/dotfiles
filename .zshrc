@@ -7,7 +7,7 @@ export ZSH=/home/nicolas/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="lambda-gitster"
+ZSH_THEME="lambda-mod"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -85,8 +85,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #fzf
-source /usr/share/doc/fzf/completion.zsh
-source /usr/share/doc/fzf/key-bindings.zsh
+source ~/.oh-my-zsh/custom/fzf/completion.zsh
+source ~/.oh-my-zsh/custom/fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND='rg --hidden --files --glob !.git'
 export FZF_CTRL_T_COMMAND='rg --hidden --files --glob !.git'
 
