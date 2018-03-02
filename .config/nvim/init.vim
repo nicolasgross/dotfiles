@@ -33,15 +33,14 @@ if has('nvim')
 		call dein#add('justinmk/vim-syntax-extra')
 		call dein#add('jreybert/vimagit')
 		call dein#add('lervag/vimtex',
-			\{'on_ft': ['tex', 'latex', 'plaintex']})
+			\{'on_ft': 'tex'})
+		call dein#add('moll/vim-bbye')
 
 		call dein#end()
 		call dein#save_state()
 	endif
 endif
 
-filetype plugin indent on
-syntax enable
 set termencoding=utf-8 encoding=utf-8 fileencoding=utf-8
 set showmatch
 set noet tabstop=4 softtabstop=4 shiftwidth=4
@@ -54,13 +53,17 @@ set cursorline
 set incsearch ignorecase smartcase
 set completeopt=noselect,menuone,preview
 set clipboard=unnamedplus
-colorscheme industry
+set textwidth=80
 set colorcolumn=81
 highlight ColorColumn ctermbg=darkgrey
+filetype plugin indent on
+syntax enable
+colorscheme industry
 
 au FileType haskell setl et
 au FileType cabal setl et
 au FileType yaml setl et
+let g:tex_flavor="latex"
 
 "disable ex mode
 nnoremap Q <Nop>
@@ -85,25 +88,25 @@ if has('nvim')
 	au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
 
 	"fzf
-	let g:fzf_layout = { 'down': '~20%' }
-	let $FZF_DEFAULT_COMMAND = 'rg --hidden --files --glob !.git'
+	let g:fzf_layout={ 'down': '~20%' }
+	let $FZF_DEFAULT_COMMAND='rg --hidden --files --glob !.git'
 	command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number
 		\ --no-heading --color=always '.shellescape(<q-args>), 1,
 		\ <bang>0 ? fzf#vim#with_preview('up:60%') :
 		\ fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
 	"deoplete
-	let g:deoplete#enable_at_startup = 1
+	let g:deoplete#enable_at_startup=1
 	autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
 
 	"deoplete-clang
-	let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-	let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+	let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
+	let g:deoplete#sources#clang#clang_header='/usr/lib/clang'
 
 	"neco-ghc
-	let g:haskellmode_completion_ghc = 0
+	let g:haskellmode_completion_ghc=0
 	autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-	let g:necoghc_enable_detailed_browse = 1
+	let g:necoghc_enable_detailed_browse=1
 
 	"neomake
 	call neomake#configure#automake('rw', 0)
@@ -129,16 +132,16 @@ if has('nvim')
 	set showtabline=2
 
 	"listtoggle
-	let g:lt_location_list_toggle_map = '<leader>tl'
-	let g:lt_quickfix_list_toggle_map = '<leader>tq'
+	let g:lt_location_list_toggle_map='<leader>tl'
+	let g:lt_quickfix_list_toggle_map='<leader>tq'
 
 	"vimwiki
-	let g:vimwiki_list = [{'path': '~/nextcloud/documents/vimwiki/',
+	let g:vimwiki_list=[{'path': '~/nextcloud/documents/vimwiki/',
 		\ 'syntax': 'markdown', 'ext': '.md'}]
-	let g:vimwiki_map_prefix = '<Leader>v'
+	let g:vimwiki_map_prefix='<Leader>v'
 
 	"vimagit
-	let g:magit_show_magit_mapping = '<leader>gc'
+	let g:magit_show_magit_mapping='<leader>gc'
 	autocmd User VimagitBufferInit call magit#commit_command("CC")
 
 	"vim-leader-guide
@@ -150,20 +153,20 @@ if has('nvim')
 	nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
 	vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 	function! s:my_displayfunc()
-		let g:leaderGuide#displayname =
-		\ substitute(g:leaderGuide#displayname, '\c<cr>$', '', '')
-		let g:leaderGuide#displayname = 
-		\ substitute(g:leaderGuide#displayname, '^<Plug>', '', '')
+		let g:leaderGuide#displayname=
+		\substitute(g:leaderGuide#displayname, '\c<cr>$', '', '')
+		let g:leaderGuide#displayname=
+		\substitute(g:leaderGuide#displayname, '^<Plug>', '', '')
 	endfunction
-	let g:leaderGuide_displayfunc = [function("s:my_displayfunc")]
+	let g:leaderGuide_displayfunc=[function("s:my_displayfunc")]
 	let g:lmap={}
 	let g:lmap.a={'name': '+applications',
 		\'t': ['terminal', 'terminal'],
 		\}
 	let g:lmap.b={'name': '+buffers',
 		\'b': ['Buffers', 'buffers'],
-		\'d': ['bd', 'kill-buffer'],
-		\'D': ['bd!', 'ace-kill-buffer'],
+		\'c': ['Bdelete', 'close-buffer'],
+		\'C': ['Bdelete!', 'ace-kill-buffer'],
 		\'e': ['ggdG', 'erase-buffer'],
 		\'m': ['bufdo bd', 'kill-other-buffers'],
 		\'n': ['bn', 'next-buffer'],
@@ -175,7 +178,6 @@ if has('nvim')
 		\'r': ['saveas', 'rename-file'],
 		\'s': ['w', 'save-file'],
 		\'S': ['bufdo w', 'save-all-files'],
-		\'t': ['NERDTreeToggle', 'toggle-file-tree'],
 		\}
 	let g:lmap.f.i={'name': '+init.vim',
 		\'e': ['e $MYVIMRC', 'edit'],
@@ -204,12 +206,13 @@ if has('nvim')
 		\'q': ['QToggle', 'quickfix-list'],
 		\'r': ['set relativenumber!', 'relative-line-numbers'],
 		\'s': ['set spell!', 'spellchecking'],
+		\'t': ['NERDTreeToggle', 'file-tree'],
 		\}
 	let g:lmap.v={'name': '+vimwiki'}
 	let g:lmap.w={'name': '+windows',
 		\'=': ['wincmd =', 'balance-windows'],
-		\'c': ['q', 'delete-window'],
-		\'C': ['q!', 'ace-delete-window'],
+		\'c': ['q', 'close-window'],
+		\'C': ['q!', 'ace-kill-window'],
 		\'h': ['wincmd h', 'focus-window-left'],
 		\'H': ['wincmd H', 'move-window-left'],
 		\'j': ['wincmd j', 'focus-window-down'],
@@ -218,11 +221,9 @@ if has('nvim')
 		\'K': ['wincmd K', 'move-window-up'],
 		\'l': ['wincmd l', 'focus-window-right'],
 		\'L': ['wincmd L', 'move-window-right'],
-		\'p': ['wincmd p', 'focus-previous-window'],
 		\'s': ['split', 'split-window-below'],
 		\'S': ['split\|wincmd w', 'split-window-below-and-focus'],
 		\'v': ['vsplit', 'split-window-right'],
 		\'V': ['vsplit\|wincmd w', 'split-window-right-and-focus'],
-		\'w': ['wincmd w', 'next-window'],
 		\}
 endif
