@@ -49,7 +49,6 @@ set number
 set omnifunc=syntaxcomplete#Complete
 set autoindent
 set list
-set cursorline
 set incsearch ignorecase smartcase
 set completeopt=noselect,menuone,preview
 set clipboard=unnamedplus
@@ -58,7 +57,6 @@ set colorcolumn=81
 highlight ColorColumn ctermbg=darkgrey
 filetype plugin indent on
 syntax enable
-colorscheme industry
 
 au FileType haskell setl et
 au FileType cabal setl et
@@ -69,13 +67,27 @@ let g:tex_flavor="latex"
 nnoremap Q <Nop>
 
 "completion popup mappings
-imap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
-imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-imap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
-imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-imap <silent><Esc><C-r> pumvisible() ? "\<C-y>" : "\<Esc>"<CR>
+inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 
-if has('nvim')
+"minimal smart tabs functionality
+function! InsertSmartTab()
+	if (col('.') > 1 && strgetchar(getline('.'), col('.') - 2) != 9)
+		let tmp=((virtcol('.') - 1) % &sts)
+		return strpart("                ", 0, &sts - tmp)
+	else
+		return "\<Tab>"
+	endif
+endfunction
+inoremap <expr> <Tab> InsertSmartTab()
+
+if !has('nvim')
+	colorscheme industry
+	set listchars=tab:>\ ,trail:-
+else
 	"colorscheme
 	set termguicolors
 	colorscheme gruvbox
@@ -227,3 +239,4 @@ if has('nvim')
 		\'V': ['vsplit\|wincmd w', 'split-window-right-and-focus'],
 		\}
 endif
+
