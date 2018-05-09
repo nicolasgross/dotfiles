@@ -4,17 +4,16 @@
 # location.
 
 import os, inspect, getpass, sys, shutil, pathlib
-# from pathlib import Path
 
 ## The list of files/dirs which should be linked to ~/.config
 configs = ['compton', 'dunst', 'fish', 'i3', 'i3blocks', 'nvim/init.vim']
 user = getpass.getuser()
 
-## Change to the dotfiles directory
+## Build path of the coned dotfiles repository
 filename = inspect.getframeinfo(inspect.currentframe()).filename
 dotfilesPath = os.path.dirname(os.path.abspath(filename))
 
-## Check wether backup folder already exists
+## Check whether backup folder already exists
 backupPath = pathlib.Path(dotfilesPath + "/backup")
 if not backupPath.is_dir():
     os.makedirs(str(backupPath))
