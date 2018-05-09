@@ -13,7 +13,6 @@ user = getpass.getuser()
 ## Change to the dotfiles directory
 filename = inspect.getframeinfo(inspect.currentframe()).filename
 dotfilesPath = os.path.dirname(os.path.abspath(filename))
-os.chdir(dotfilesPath)
 
 ## Check wether backup folder already exists
 backupPath = pathlib.Path(dotfilesPath + "/backup")
