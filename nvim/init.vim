@@ -2,6 +2,8 @@ if &compatible
 	set nocompatible
 endif
 
+set shell=sh
+
 if has('nvim')
 	set runtimepath+=/home/nicolas/.config/nvim/dein/repos/github.com/
 		\Shougo/dein.vim
@@ -35,6 +37,7 @@ if has('nvim')
 		call dein#add('lervag/vimtex',
 			\{'on_ft': 'tex'})
 		call dein#add('moll/vim-bbye')
+		call dein#add('dag/vim-fish')
 
 		call dein#end()
 		call dein#save_state()
