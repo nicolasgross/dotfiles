@@ -23,7 +23,7 @@ else:
 
 ## Function to check for existing configs and to backup them
 def configBackup(path, configName):
-    if (path.exists()):
+    if (path.exists() or os.path.islink(str(path))):
         backup = str(backupPath) + '/' + configName
         head, tail = os.path.split(configName)
         if not head == '':
