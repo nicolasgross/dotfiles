@@ -1,8 +1,8 @@
 # Based on:
 # - C. Morrell's Fish Theme (https://github.com/oh-my-fish/theme-cmorrell.com)
-# Heavily influenced by:
+# - fish's informative_vcs sample prompt
+# Heavily inspired by:
 # - mathiasbynens' bash prompt (https://github.com/mathiasbynens/dotfiles)
-# - bash-git-prompt (https://github.com/magicmonty/bash-git-prompt)
 
 ## Function to show a segment
 function prompt_segment -d "Function to show a segment"
