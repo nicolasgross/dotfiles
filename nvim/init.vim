@@ -47,7 +47,7 @@ endif
 set termencoding=utf-8 encoding=utf-8 fileencoding=utf-8
 set showmatch
 set noet tabstop=4 softtabstop=4 shiftwidth=4
-set mouse=a
+set mouse=r
 set number
 set omnifunc=syntaxcomplete#Complete
 set autoindent
