@@ -38,11 +38,11 @@ end
 ## Show user if not in default users
 function show_user -d "Show user"
 	set -l who (whoami)
-	prompt_segment normal yellow "$who"
+	prompt_segment normal red "$who"
 	if not command git rev-parse --is-inside-work-tree >/dev/null 2>&1
 		set -l host (hostname -s)
 		prompt_segment normal white " at"
-		prompt_segment normal green " $host"
+		prompt_segment normal yellow " $host"
 	end
 	prompt_segment normal white " in "
 end
@@ -62,7 +62,7 @@ function show_pwd -d "Show the current directory"
 	else
 		set pwd (dirs)
 	end
-	prompt_segment normal blue "$pwd"
+	prompt_segment normal green "$pwd"
 end
 
 ## Show git status
