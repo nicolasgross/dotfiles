@@ -95,7 +95,7 @@ else
 	set termguicolors
 	colorscheme gruvbox
 	set background=dark
-	
+
 	"cursor
 	set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,
 		\i-ci:ver25-Cursor/lCursor-blinkon1,r-cr:hor20-Cursor/lCursor,

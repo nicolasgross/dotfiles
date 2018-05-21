@@ -6,7 +6,7 @@ not in use.
 1. Clone the repository to your desired location:  
 `git clone https://github.com/nicolasgross/dotfiles`
 
-2. Run the setup command:  
+2. Run the setup script:  
 `python3 /path/to/cloned/repo/setup.py`
 
 3. Backup your old configuration files (copied to
