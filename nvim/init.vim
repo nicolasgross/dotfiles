@@ -2,8 +2,6 @@ if &compatible
 	set nocompatible
 endif
 
-set shell=sh
-
 if has('nvim')
 	set runtimepath+=/home/nicolas/.config/nvim/dein/repos/github.com/
 		\Shougo/dein.vim
@@ -102,6 +100,9 @@ else
 		\o:hor20-Cursor/block-Cursor
 	au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
 
+	"terminal esc mapping
+	tnoremap <Esc> <C-\><C-n>
+
 	"fzf
 	let g:fzf_layout={ 'down': '~20%' }
 	let $FZF_DEFAULT_COMMAND='rg --hidden --files --glob !.git'
@@ -157,7 +158,8 @@ else
 
 	"vimagit
 	let g:magit_show_magit_mapping='<leader>gc'
-	autocmd User VimagitBufferInit call magit#commit_command("CC")
+	let g:magit_commit_mapping="C"
+	"autocmd User VimagitBufferInit call magit#commit_command("CC")
 
 	"vim-leader-guide
 	set timeoutlen=0
