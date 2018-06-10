@@ -101,7 +101,7 @@ else
 	au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
 
 	"fzf
-	let g:fzf_layout={ 'down': '~20%' }
+	let g:fzf_layout={ 'down': '~30%' }
 	let $FZF_DEFAULT_COMMAND='rg --hidden --files --glob !.git'
 	command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number
 		\ --no-heading --color=always '.shellescape(<q-args>), 1,
@@ -153,14 +153,12 @@ else
 	let g:vimwiki_map_prefix='<Leader>v'
 
 	"vimagit
-	let g:magit_show_magit_mapping='<leader>gc'
+	let g:magit_show_magit_mapping=''
 	let g:magit_commit_mapping="C"
-	"autocmd User VimagitBufferInit call magit#commit_command("CC")
 
 	"vim-leader-guide
 	set timeoutlen=0
 	set ttimeoutlen=0
-	nnoremap <c-w> <Space>
 	let mapleader="\<Space>"
 	call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 	nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
@@ -188,7 +186,8 @@ else
 		\'Y': ['%y', 'copy-whole-buffer-to-clipboard'],
 		\}
 	let g:lmap.f={'name': '+Files',
-		\'f': ['Files ~', 'find-file'],
+		\'f': ['Files .', 'find-file'],
+		\'F': ['Files ~', 'global-find-file'],
 		\'s': ['w', 'save-file'],
 		\'S': ['bufdo w', 'save-all-files'],
 		\}
@@ -197,7 +196,8 @@ else
 		\'r': ['so $MYVIMRC', 'reload'],
 		\}
 	let g:lmap.g={'name': '+Git',
-		\'c': ['Magit', 'stage'],
+		\'f': ['GFiles', 'find-file'],
+		\'s': ['Magit', 'stage'],
 		\}
 	let g:lmap.q={'name': '+Quit',
 		\'q': ['qa', 'prompt-kill-vim'],
@@ -207,7 +207,8 @@ else
 		\'c': ['Commands', 'search-in-commands'],
 		\'g': ['Rg', 'grep'],
 		\'h': ['History:', 'search-in-cmd-history'],
-		\'s': ['Lines', 'search-in-file'],
+		\'s': ['BLines', 'search-in-buffer'],
+		\'S': ['Lines', 'search-in-all-buffers'],
 		\}
 	let g:lmap.t={'name': '+Toggles',
 		\'b': ['let &background=(&background == "dark"? "light" : "dark")',
@@ -230,14 +231,19 @@ else
 		\'=': ['wincmd =', 'balance-windows'],
 		\'c': ['q', 'close-window'],
 		\'C': ['q!', 'ace-kill-window'],
+		\'d': ['resize -5', 'decrease-window-hor'],
+		\'D': ['vertical resize -10', 'decrease-window-vert'],
 		\'h': ['wincmd h', 'focus-window-left'],
 		\'H': ['wincmd H', 'move-window-left'],
+		\'i': ['resize +5', 'increase-window-hor'],
+		\'I': ['vertical resize +10', 'increase-window-vert'],
 		\'j': ['wincmd j', 'focus-window-down'],
 		\'J': ['wincmd J', 'move-window-down'],
 		\'k': ['wincmd k', 'focus-window-up'],
 		\'K': ['wincmd K', 'move-window-up'],
 		\'l': ['wincmd l', 'focus-window-right'],
 		\'L': ['wincmd L', 'move-window-right'],
+		\'o': ['only', 'close-other-windows'],
 		\'s': ['split', 'split-window-below'],
 		\'S': ['split\|wincmd w', 'split-window-below-and-focus'],
 		\'v': ['vsplit', 'split-window-right'],
