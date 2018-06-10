@@ -28,7 +28,7 @@ if has('nvim')
 			\{'on_cmd': 'NERDTreeToggle'})
 		call dein#add('hecal3/vim-leader-guide')
 		call dein#add('junegunn/fzf.vim')
-		call dein#add('Valloric/ListToggle')
+		call dein#add('milkypostman/vim-togglelist')
 		call dein#add('vimwiki/vimwiki')
 		call dein#add('justinmk/vim-syntax-extra')
 		call dein#add('jreybert/vimagit')
@@ -100,9 +100,6 @@ else
 		\o:hor20-Cursor/block-Cursor
 	au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
 
-	"terminal esc mapping
-	tnoremap <Esc> <C-\><C-n>
-
 	"fzf
 	let g:fzf_layout={ 'down': '~20%' }
 	let $FZF_DEFAULT_COMMAND='rg --hidden --files --glob !.git'
@@ -148,8 +145,7 @@ else
 	set showtabline=2
 
 	"listtoggle
-	let g:lt_location_list_toggle_map='<leader>tl'
-	let g:lt_quickfix_list_toggle_map='<leader>tq'
+	let g:toggle_list_no_mappings=1
 
 	"vimwiki
 	let g:vimwiki_list=[{'path': '~/nextcloud/documents/vimwiki/',
@@ -177,10 +173,10 @@ else
 	endfunction
 	let g:leaderGuide_displayfunc=[function("s:my_displayfunc")]
 	let g:lmap={}
-	let g:lmap.a={'name': '+applications',
+	let g:lmap.a={'name': '+Applications',
 		\'t': ['terminal', 'terminal'],
 		\}
-	let g:lmap.b={'name': '+buffers',
+	let g:lmap.b={'name': '+Buffers',
 		\'b': ['Buffers', 'buffers'],
 		\'c': ['Bdelete', 'close-buffer'],
 		\'C': ['Bdelete!', 'ace-kill-buffer'],
@@ -191,42 +187,46 @@ else
 		\'p': ['bp', 'previous-buffer'],
 		\'Y': ['%y', 'copy-whole-buffer-to-clipboard'],
 		\}
-	let g:lmap.f={'name': '+files',
-		\'r': ['saveas', 'rename-file'],
+	let g:lmap.f={'name': '+Files',
+		\'f': ['Files ~', 'find-file'],
 		\'s': ['w', 'save-file'],
 		\'S': ['bufdo w', 'save-all-files'],
 		\}
-	let g:lmap.f.i={'name': '+init.vim',
+	let g:lmap.f.i={'name': '+Init.vim',
 		\'e': ['e $MYVIMRC', 'edit'],
 		\'r': ['so $MYVIMRC', 'reload'],
 		\}
-	let g:lmap.g={'name': '+git',
-		\'c': ['Magit', 'commit'],
+	let g:lmap.g={'name': '+Git',
+		\'c': ['Magit', 'stage'],
 		\}
-	let g:lmap.q={'name': '+quit',
+	let g:lmap.q={'name': '+Quit',
 		\'q': ['qa', 'prompt-kill-vim'],
 		\'Q': ['qa!', 'kill-vim'],
 		\}
-	let g:lmap.s={'name': '+search',
-		\'c': ['Commands', 'commands'],
-		\'f': ['Files ~', 'counsel-find-file'],
+	let g:lmap.s={'name': '+Search',
+		\'c': ['Commands', 'search-in-commands'],
 		\'g': ['Rg', 'grep'],
-		\'h': ['History:', 'command-history'],
+		\'h': ['History:', 'search-in-cmd-history'],
 		\'s': ['Lines', 'search-in-file'],
 		\}
-	let g:lmap.t={'name': '+toggles',
-		\'c': ['set cursorline!', 'cursorline'],
+	let g:lmap.t={'name': '+Toggles',
+		\'b': ['let &background=(&background == "dark"? "light" : "dark")',
+			\'background'],
+		\'c': ['Colors', 'colorscheme'],
 		\'e': ['NeomakeToggleBuffer', 'error-checking'],
 		\'h': ['set hlsearch!', 'search-highlighting'],
-		\'l': ['LToggle', 'location-list'],
+		\'l': ['set cursorline!', 'cursorline'],
 		\'n': ['set number!', 'line-numbers'],
-		\'q': ['QToggle', 'quickfix-list'],
 		\'r': ['set relativenumber!', 'relative-line-numbers'],
 		\'s': ['set spell!', 'spellchecking'],
 		\'t': ['NERDTreeToggle', 'file-tree'],
 		\}
-	let g:lmap.v={'name': '+vimwiki'}
-	let g:lmap.w={'name': '+windows',
+	let g:lmap.t.w={'name': '+Windows',
+		\'l': [':call ToggleLocationList()', 'location-list'],
+		\'q': [':call ToggleQuickfixList()', 'quickfix-list'],
+		\}
+	let g:lmap.v={'name': '+Vimwiki'}
+	let g:lmap.w={'name': '+Windows',
 		\'=': ['wincmd =', 'balance-windows'],
 		\'c': ['q', 'close-window'],
 		\'C': ['q!', 'ace-kill-window'],
