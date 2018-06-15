@@ -53,21 +53,29 @@ configBackup(file, '.vimrc')
 
 
 ## CREATE SYMLINKS
+def createSymlink(source, destination):
+    head, tail = os.path.split(destination)
+    if (not pathlib.Path(head).exists()):
+        os.makedirs(head)
+    os.symlink(source, destination)
+
 ### Create symlinks from dotfiles repo to ~/
 for i in home:
     source = dotfilesPath + '/' + i
     destination = '/home/' + user + '/' + i
-    os.symlink(source, destination)
+    createSymlink(source, destination)
 
 ### Create symlinks from dotfiles repo to ~/.config/
 for i in dotConfig:
     source = dotfilesPath + '/' + i
     destination = '/home/' + user + '/.config/' + i
-    os.symlink(source, destination)
+    createSymlink(source, destination)
 
 ### Special linking cases:
 #### vim (uses neovim config)
 source = dotfilesPath + '/nvim/init.vim'
 destination = '/home/' + user + '/.vimrc'
-os.symlink(source, destination)
+createSymlink(source, destination)
+
+print("Config files successfully installed!")
 
