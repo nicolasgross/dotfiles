@@ -27,6 +27,7 @@ if has('nvim')
 		call dein#add('scrooloose/nerdtree',
 			\{'on_cmd': 'NERDTreeToggle'})
 		call dein#add('hecal3/vim-leader-guide')
+		call dein#add('junegunn/fzf')
 		call dein#add('junegunn/fzf.vim')
 		call dein#add('milkypostman/vim-togglelist')
 		call dein#add('vimwiki/vimwiki')
@@ -101,6 +102,8 @@ else
 	au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
 
 	"fzf
+	set runtimepath+=/home/nicolas/.config/nvim/dein/repos/github.com/junegunn
+		\/fzf
 	let g:fzf_layout={ 'down': '~30%' }
 	let $FZF_DEFAULT_COMMAND='rg --hidden --files --glob !.git'
 	command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number
