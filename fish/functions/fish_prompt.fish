@@ -144,7 +144,6 @@ end
 function fish_prompt
 	set -g RETVAL $status
 	echo -e ''
-	fish_custom_mode_prompt
 	show_ssh
 	show_virtualenv
 	show_user
