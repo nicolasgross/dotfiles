@@ -27,7 +27,7 @@ if has('nvim')
 		call dein#add('scrooloose/nerdtree',
 			\{'on_cmd': 'NERDTreeToggle'})
 		call dein#add('hecal3/vim-leader-guide')
-		call dein#add('junegunn/fzf')
+		call dein#add('junegunn/fzf', {'merged': 0})
 		call dein#add('junegunn/fzf.vim')
 		call dein#add('milkypostman/vim-togglelist')
 		call dein#add('vimwiki/vimwiki')
