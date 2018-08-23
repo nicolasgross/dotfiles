@@ -39,11 +39,9 @@ end
 function show_user -d "Show user"
 	set -l who (whoami)
 	prompt_segment normal red "$who"
-	if not command git rev-parse --is-inside-work-tree >/dev/null 2>&1
-		set -l host (hostname -s)
-		prompt_segment normal white " at"
-		prompt_segment normal yellow " $host"
-	end
+	set -l host (hostname -s)
+	prompt_segment normal white " at"
+	prompt_segment normal yellow " $host"
 	prompt_segment normal white " in "
 end
 
@@ -125,6 +123,9 @@ function show_git_status -d "Gets the current git status"
 	
 	set tmp (__fish_vcs_prompt)
 	if not test "$tmp" = ""
+		set tmp (string replace -r '\|' ' [' $tmp)
+		set tmp (string replace -r '\(' '' $tmp)
+		set tmp (string replace -r '\)' ']' $tmp)
 		prompt_segment normal white "on"
 		set_color normal
 		printf '%s ' $tmp
@@ -146,6 +147,9 @@ function fish_prompt
 	echo -e ''
 	show_ssh
 	show_virtualenv
+#	if not command git rev-parse --is-inside-work-tree >/dev/null 2>&1
+#		show_user
+#	end
 	show_user
 	show_pwd
 	show_git_status
