@@ -12,3 +12,7 @@ not in use.
 3. Backup your old configuration files (copied to
 `/path/to/cloned/repo/backup/` by the setup script) at a safe location.
 
+## Licensing
+Unless otherwise stated at the top of a file, the contents of this repository
+are released under the terms of the MIT license.
+
