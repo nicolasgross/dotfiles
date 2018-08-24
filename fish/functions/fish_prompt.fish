@@ -123,9 +123,9 @@ function show_git_status -d "Gets the current git status"
 	
 	set tmp (__fish_vcs_prompt)
 	if not test "$tmp" = ""
-		set tmp (string replace -r '\|' ' [' $tmp)
-		set tmp (string replace -r '\(' '' $tmp)
-		set tmp (string replace -r '\)' ']' $tmp)
+		#set tmp (string replace -r '\|' ' [' $tmp)
+		#set tmp (string replace -r '\(' '' $tmp)
+		#set tmp (string replace -r '\)' ']' $tmp)
 		prompt_segment normal white "on"
 		set_color normal
 		printf '%s ' $tmp
