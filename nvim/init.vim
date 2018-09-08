@@ -37,6 +37,7 @@ if has('nvim')
 			\{'on_ft': 'tex'})
 		call dein#add('moll/vim-bbye')
 		call dein#add('dag/vim-fish')
+		call dein#add('editorconfig/editorconfig-vim')
 
 		call dein#end()
 		call dein#save_state()
