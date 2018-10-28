@@ -6,7 +6,7 @@
 import os, inspect, getpass, sys, shutil, pathlib
 
 ## The list of files/dirs which should be linked to ~
-home = ['.gitconfig']
+home = ['.gitconfig', '.profile']
 ## The list of files/dirs which should be linked to ~/.config
 dotConfig = ['compton', 'dunst', 'fish', 'i3', 'i3blocks', 'nvim/init.vim']
 user = getpass.getuser()
