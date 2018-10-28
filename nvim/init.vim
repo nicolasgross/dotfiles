@@ -19,6 +19,8 @@ if has('nvim')
 			\{'on_ft': ['c', 'cpp']})
 		call dein#add('eagletmt/neco-ghc',
 			\{'on_ft': 'haskell'})
+		call dein#add('rust-lang/rust.vim',
+			\{'on_ft': 'rust'})
 		call dein#add('neomake/neomake')
 		call dein#add('itchyny/lightline.vim')
 		call dein#add('bling/vim-bufferline')
@@ -52,6 +54,7 @@ set number
 set omnifunc=syntaxcomplete#Complete
 set autoindent
 set list
+set listchars=tab:>.,trail:-,nbsp:+
 set incsearch ignorecase smartcase
 set completeopt=noselect,menuone,preview
 set clipboard=unnamedplus
