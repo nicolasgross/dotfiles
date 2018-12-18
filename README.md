@@ -1,5 +1,5 @@
 # Nicolas's dotfiles
-This is a collection of my dotfiles, also including files which are currently
+This is a collection of my dotfiles, also including files that are currently
 not in use.
 
 ## Installation

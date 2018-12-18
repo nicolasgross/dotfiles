@@ -11,18 +11,24 @@ if has('nvim')
 		call dein#add('/home/nicolas/.config/nvim/dein/repos/github.com/Shougo/
 			\dein.vim')
 
-		call dein#add('Shougo/deoplete.nvim',
-			\{'on_i': 1})
-		call dein#add('zchee/deoplete-clang',
+		call dein#add('Shougo/deoplete.nvim')
+		call dein#add('Shougo/neco-syntax')
+		call dein#add('Shougo/deoplete-clangx',
 			\{'on_ft': ['c', 'cpp']})
 		call dein#add('Shougo/neoinclude.vim',
 			\{'on_ft': ['c', 'cpp']})
+		call dein#add('justinmk/vim-syntax-extra')
 		call dein#add('eagletmt/neco-ghc',
 			\{'on_ft': 'haskell'})
 		call dein#add('rust-lang/rust.vim',
 			\{'on_ft': 'rust'})
-		call dein#add('neomake/neomake')
+		call dein#add('lervag/vimtex',
+			\{'on_ft': 'tex'})
+		call dein#add('dag/vim-fish')
+		call dein#add('w0rp/ale')
+		call dein#add('vimwiki/vimwiki')
 		call dein#add('itchyny/lightline.vim')
+		call dein#add('maximbaz/lightline-ale')
 		call dein#add('bling/vim-bufferline')
 		call dein#add('morhetz/gruvbox')
 		call dein#add('lifepillar/vim-solarized8')
@@ -32,13 +38,9 @@ if has('nvim')
 		call dein#add('junegunn/fzf', {'merged': 0})
 		call dein#add('junegunn/fzf.vim')
 		call dein#add('milkypostman/vim-togglelist')
-		call dein#add('vimwiki/vimwiki')
-		call dein#add('justinmk/vim-syntax-extra')
-		call dein#add('jreybert/vimagit')
-		call dein#add('lervag/vimtex',
-			\{'on_ft': 'tex'})
+		call dein#add('jreybert/vimagit',
+			\{'on_cmd': 'Magit'})
 		call dein#add('moll/vim-bbye')
-		call dein#add('dag/vim-fish')
 		call dein#add('editorconfig/editorconfig-vim')
 
 		call dein#end()
@@ -119,17 +121,8 @@ else
 	let g:deoplete#enable_at_startup=1
 	autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
 
-	"deoplete-clang
-	let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
-	let g:deoplete#sources#clang#clang_header='/usr/lib/clang'
-
-	"neco-ghc
-	let g:haskellmode_completion_ghc=0
-	autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-	let g:necoghc_enable_detailed_browse=1
-
-	"neomake
-	call neomake#configure#automake('rw', 0)
+	"deoplete-clangx
+	call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
 
 	"lightline
 	let g:lightline = {
@@ -139,9 +132,22 @@ else
 		\ },
 		\ 'component_expand': {
 		\   'bufferline': 'LightlineBufferline',
+		\   'linter_checking': 'lightline#ale#checking',
+		\   'linter_warnings': 'lightline#ale#warnings',
+		\   'linter_errors': 'lightline#ale#errors',
 		\ },
 		\ 'component_type': {
 		\   'bufferline': 'tabsel',
+		\   'linter_checking': 'left',
+		\   'linter_warnings': 'warning',
+		\   'linter_errors': 'error',
+		\ },
+		\ 'active': {
+		\   'right': [[ 'lineinfo' ], [ 'percent' ], [ 'fileformat',
+		\            'fileencoding', 'filetype' ], [ 'linter_errors',
+		\            'linter_warnings', 'linter_checking' ]],
+		\   'left': [[ 'mode', 'paste' ], [ 'readonly', 'filename',
+		\           'modified' ]],
 		\ },
 		\ }
 	function! LightlineBufferline()
@@ -221,7 +227,7 @@ else
 		\'b': ['let &background=(&background == "dark"? "light" : "dark")',
 			\'background'],
 		\'c': ['Colors', 'colorscheme'],
-		\'e': ['NeomakeToggleBuffer', 'error-checking'],
+		\'e': ['ALEToggle', 'error-checking'],
 		\'h': ['set hlsearch!', 'search-highlighting'],
 		\'l': ['set cursorline!', 'cursorline'],
 		\'n': ['set number!', 'line-numbers'],
