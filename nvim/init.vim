@@ -60,8 +60,8 @@ set listchars=tab:>.,trail:-,nbsp:+
 set incsearch ignorecase smartcase
 set completeopt=noselect,menuone,preview
 set clipboard=unnamedplus
-set textwidth=80
-set colorcolumn=81
+set textwidth=79
+set colorcolumn=80
 highlight ColorColumn ctermbg=darkgrey
 filetype plugin indent on
 syntax enable
@@ -123,6 +123,11 @@ else
 
 	"deoplete-clangx
 	call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
+
+	"ale
+	let g:ale_linters = {
+		\ 'c': ['gcc'],
+		\}
 
 	"lightline
 	let g:lightline = {
