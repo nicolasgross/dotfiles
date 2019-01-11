@@ -13,7 +13,7 @@ import pathlib
 # The list of files/dirs which should be linked to ~
 home = ['.gitconfig', '.profile']
 # The list of files/dirs which should be linked to ~/.config
-dotConfig = ['compton', 'dunst', 'fish', 'i3', 'i3blocks', 'nvim/init.vim']
+dotConfig = ['fish', 'nvim/init.vim']
 user = getpass.getuser()
 
 # Build path of the cloned dotfiles repository

@@ -1,6 +1,5 @@
 # Nicolas's dotfiles
-This is a collection of my dotfiles, also including files that are currently
-not in use.
+This is a collection of my dotfiles.
 
 ## Installation
 1. Clone the repository:  
