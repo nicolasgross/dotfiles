@@ -34,7 +34,7 @@ if has('nvim')
 		call dein#add('lifepillar/vim-solarized8')
 		call dein#add('scrooloose/nerdtree',
 			\{'on_cmd': 'NERDTreeToggle'})
-		call dein#add('hecal3/vim-leader-guide')
+		call dein#add('liuchengxu/vim-which-key')
 		call dein#add('junegunn/fzf', {'merged': 0})
 		call dein#add('junegunn/fzf.vim')
 		call dein#add('milkypostman/vim-togglelist')
@@ -65,21 +65,68 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=darkgrey
 filetype plugin indent on
 syntax enable
-
-au FileType haskell setl et
-au FileType cabal setl et
-au FileType yaml setl et
 let g:tex_flavor="latex"
 
-"disable ex mode
-nnoremap Q <Nop>
-
-"completion popup mappings
+"mappings - plugin independent
+let mapleader="\<Space>"
+" -- applications
+nnoremap <leader>at :terminal<CR>
+" -- init.vim
+nnoremap <leader>fie :edit $MYVIMRC<CR>
+nnoremap <leader>fir :source $MYVIMRC<CR>
+" -- buffers
+nnoremap <leader>bc :bdelete<CR>
+nnoremap <leader>bC :bdelete!<CR>
+nnoremap <leader>be :ggdG<CR>
+nnoremap <leader>bm :bufdo bd<CR>
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bN :enew<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bY :%y<CR>
+" -- files
+nnoremap <leader>fs :w<CR>
+nnoremap <leader>fS :bufdo w<CR>
+" -- quit
+nnoremap <leader>qq :qa<CR>
+nnoremap <leader>qQ :qa!<CR>
+" -- toggles
+nnoremap <leader>tb :let &background=(&background == "dark"? "light" :
+	\ "dark")<CR>
+nnoremap <leader>th :set hlsearch!<CR>
+nnoremap <leader>tl :set cursorline!<CR>
+nnoremap <leader>tn :set number!<CR>
+nnoremap <leader>tr :set relativenumber!<CR>
+nnoremap <leader>ts :set spell!<CR>
+" -- windows
+nnoremap <leader>w= :wincmd =<CR>
+nnoremap <leader>wc :q<CR>
+nnoremap <leader>wC :q!<CR>
+nnoremap <leader>wd :resize -5<CR>
+nnoremap <leader>wD :vertical resize -10<CR>
+nnoremap <leader>wh :wincmd h<CR>
+nnoremap <leader>wH :wincmd H<CR>
+nnoremap <leader>wi :resize +5<CR>
+nnoremap <leader>wI :vertical resize +10<CR>
+nnoremap <leader>wj :wincmd j<CR>
+nnoremap <leader>wJ :wincmd J<CR>
+nnoremap <leader>wk :wincmd k<CR>
+nnoremap <leader>wK :wincmd K<CR>
+nnoremap <leader>wl :wincmd l<CR>
+nnoremap <leader>wL :wincmd L<CR>
+nnoremap <leader>wo :only<CR>
+nnoremap <leader>ws :split<CR>
+nnoremap <leader>wS :split\|wincmd w<CR>
+nnoremap <leader>wv :vsplit<CR>
+nnoremap <leader>wV :vsplit\|wincmd w<CR>
+" -- completion popup
 inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+
+"disable ex mode
+nnoremap Q <Nop>
 
 "minimal smart tabs functionality
 function! InsertSmartTab()
@@ -93,9 +140,32 @@ endfunction
 inoremap <expr> <Tab> InsertSmartTab()
 
 if !has('nvim')
+	set timeoutlen=2000
 	colorscheme industry
 	set listchars=tab:>\ ,trail:-
 else
+	"mappings - plugin dependent
+	" -- buffers
+	nnoremap <leader>bb :Buffers<CR>
+	" -- files
+	nnoremap <leader>ff :Files .<CR>
+	nnoremap <leader>fF :Files ~<CR>
+	" -- git
+	nnoremap <leader>gf :GFiles<CR>
+	nnoremap <leader>gs :Magit<CR>
+	" -- search
+	nnoremap <leader>sc :Commands<CR>
+	nnoremap <leader>sg :Rg<CR>
+	nnoremap <leader>sh :History<CR>
+	nnoremap <leader>ss :BLines<CR>
+	nnoremap <leader>sS :Lines<CR>
+	" -- toggles
+	nnoremap <leader>tc :Colors<CR>
+	nnoremap <leader>te :ALEToggle<CR>
+	nnoremap <leader>tt :NERDTreeToggle<CR>
+	nnoremap <leader>twl :ToggleLocationList<CR>
+	nnoremap <leader>twq :ToggleQuickfixList<CR>
+
 	"colorscheme
 	set termguicolors
 	colorscheme gruvbox
@@ -176,98 +246,91 @@ else
 	let g:magit_show_magit_mapping=''
 	let g:magit_commit_mapping="C"
 
-	"vim-leader-guide
-	set timeoutlen=0
-	set ttimeoutlen=0
-	let mapleader="\<Space>"
-	call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
-	nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
-	vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
-	function! s:my_displayfunc()
-		let g:leaderGuide#displayname=
-		\substitute(g:leaderGuide#displayname, '\c<cr>$', '', '')
-		let g:leaderGuide#displayname=
-		\substitute(g:leaderGuide#displayname, '^<Plug>', '', '')
-	endfunction
-	let g:leaderGuide_displayfunc=[function("s:my_displayfunc")]
+	"vim-which-key
+	set timeoutlen=500
+	nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+	vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+	call which_key#register('<Space>', "g:lmap")
+	autocmd! FileType which_key
+	autocmd  FileType which_key set laststatus=0 noshowmode noruler
+		\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 	let g:lmap={}
 	let g:lmap.a={'name': '+Applications',
-		\'t': ['terminal', 'terminal'],
+		\'t': 'terminal',
 		\}
 	let g:lmap.b={'name': '+Buffers',
-		\'b': ['Buffers', 'buffers'],
-		\'c': ['Bdelete', 'close-buffer'],
-		\'C': ['Bdelete!', 'ace-kill-buffer'],
-		\'e': ['ggdG', 'erase-buffer'],
-		\'m': ['bufdo bd', 'kill-other-buffers'],
-		\'n': ['bn', 'next-buffer'],
-		\'N': ['enew', 'new-empty-buffer'],
-		\'p': ['bp', 'previous-buffer'],
-		\'Y': ['%y', 'copy-whole-buffer-to-clipboard'],
+		\'b': 'buffers',
+		\'c': 'close-buffer',
+		\'C': 'ace-kill-buffer',
+		\'e': 'erase-buffer',
+		\'m': 'kill-other-buffers',
+		\'n': 'next-buffer',
+		\'N': 'new-empty-buffer',
+		\'p': 'previous-buffer',
+		\'Y': 'copy-whole-buffer-to-clipboard',
 		\}
 	let g:lmap.f={'name': '+Files',
-		\'f': ['Files .', 'find-file'],
-		\'F': ['Files ~', 'global-find-file'],
-		\'s': ['w', 'save-file'],
-		\'S': ['bufdo w', 'save-all-files'],
+		\'f': 'find-file',
+		\'F': 'global-find-file',
+		\'s': 'save-file',
+		\'S': 'save-all-files',
 		\}
 	let g:lmap.f.i={'name': '+Init.vim',
-		\'e': ['e $MYVIMRC', 'edit'],
-		\'r': ['so $MYVIMRC', 'reload'],
+		\'e': 'edit',
+		\'r': 'reload',
 		\}
 	let g:lmap.g={'name': '+Git',
-		\'f': ['GFiles', 'find-file'],
-		\'s': ['Magit', 'stage'],
+		\'f': 'find-file',
+		\'s': 'stage',
 		\}
 	let g:lmap.q={'name': '+Quit',
-		\'q': ['qa', 'prompt-kill-vim'],
-		\'Q': ['qa!', 'kill-vim'],
+		\'q': 'prompt-kill-vim',
+		\'Q': 'kill-vim',
 		\}
 	let g:lmap.s={'name': '+Search',
-		\'c': ['Commands', 'search-in-commands'],
-		\'g': ['Rg', 'grep'],
-		\'h': ['History:', 'search-in-cmd-history'],
-		\'s': ['BLines', 'search-in-buffer'],
-		\'S': ['Lines', 'search-in-all-buffers'],
+		\'c': 'search-in-commands',
+		\'g': 'grep',
+		\'h': 'search-in-cmd-history',
+		\'s': 'search-in-buffer',
+		\'S': 'search-in-all-buffers',
 		\}
 	let g:lmap.t={'name': '+Toggles',
-		\'b': ['let &background=(&background == "dark"? "light" : "dark")',
-			\'background'],
-		\'c': ['Colors', 'colorscheme'],
-		\'e': ['ALEToggle', 'error-checking'],
-		\'h': ['set hlsearch!', 'search-highlighting'],
-		\'l': ['set cursorline!', 'cursorline'],
-		\'n': ['set number!', 'line-numbers'],
-		\'r': ['set relativenumber!', 'relative-line-numbers'],
-		\'s': ['set spell!', 'spellchecking'],
-		\'t': ['NERDTreeToggle', 'file-tree'],
+		\'b': 'background',
+		\'c': 'colorscheme',
+		\'e': 'error-checking',
+		\'h': 'search-highlighting',
+		\'l': 'cursorline',
+		\'n': 'line-numbers',
+		\'r': 'relative-line-numbers',
+		\'s': 'spellchecking',
+		\'t': 'file-tree',
 		\}
 	let g:lmap.t.w={'name': '+Windows',
-		\'l': [':call ToggleLocationList()', 'location-list'],
-		\'q': [':call ToggleQuickfixList()', 'quickfix-list'],
+		\'l': 'location-list',
+		\'q': 'quickfix-list',
 		\}
 	let g:lmap.v={'name': '+Vimwiki'}
 	let g:lmap.w={'name': '+Windows',
-		\'=': ['wincmd =', 'balance-windows'],
-		\'c': ['q', 'close-window'],
-		\'C': ['q!', 'ace-kill-window'],
-		\'d': ['resize -5', 'decrease-window-hor'],
-		\'D': ['vertical resize -10', 'decrease-window-vert'],
-		\'h': ['wincmd h', 'focus-window-left'],
-		\'H': ['wincmd H', 'move-window-left'],
-		\'i': ['resize +5', 'increase-window-hor'],
-		\'I': ['vertical resize +10', 'increase-window-vert'],
-		\'j': ['wincmd j', 'focus-window-down'],
-		\'J': ['wincmd J', 'move-window-down'],
-		\'k': ['wincmd k', 'focus-window-up'],
-		\'K': ['wincmd K', 'move-window-up'],
-		\'l': ['wincmd l', 'focus-window-right'],
-		\'L': ['wincmd L', 'move-window-right'],
-		\'o': ['only', 'close-other-windows'],
-		\'s': ['split', 'split-window-below'],
-		\'S': ['split\|wincmd w', 'split-window-below-and-focus'],
-		\'v': ['vsplit', 'split-window-right'],
-		\'V': ['vsplit\|wincmd w', 'split-window-right-and-focus'],
+		\'=': 'balance-windows',
+		\'c': 'close-window',
+		\'C': 'ace-kill-window',
+		\'d': 'decrease-window-hor',
+		\'D': 'decrease-window-vert',
+		\'h': 'focus-window-left',
+		\'H': 'move-window-left',
+		\'i': 'increase-window-hor',
+		\'I': 'increase-window-vert',
+		\'j': 'focus-window-down',
+		\'J': 'move-window-down',
+		\'k': 'focus-window-up',
+		\'K': 'move-window-up',
+		\'l': 'focus-window-right',
+		\'L': 'move-window-right',
+		\'o': 'close-other-windows',
+		\'s': 'split-window-below',
+		\'S': 'split-window-below-and-focus',
+		\'v': 'split-window-right',
+		\'V': 'split-window-right-and-focus',
 		\}
 endif
 

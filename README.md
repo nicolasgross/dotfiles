@@ -1,4 +1,4 @@
-# Nicolas's dotfiles
+# Nico's dotfiles
 This is a collection of my dotfiles.
 
 ## Installation
