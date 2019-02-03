@@ -13,7 +13,9 @@ import pathlib
 # The list of files/dirs which should be linked to ~
 home = ['.gitconfig', '.profile']
 # The list of files/dirs which should be linked to ~/.config
-dotConfig = ['fish', 'nvim/init.vim']
+dotConfig = ['fish', 'nvim/init.vim', 'nvim/mappings.vim',
+             'nvim/smarttabs.vim', 'nvim/plugin-manager.vim',
+             'nvim/plugin-configs.vim']
 user = getpass.getuser()
 
 # Build path of the cloned dotfiles repository
@@ -36,8 +38,9 @@ def configBackup(path, configName):
     if (path.exists() or os.path.islink(str(path))):
         backup = str(backupPath) + '/' + configName
         head, tail = os.path.split(configName)
-        if not head == '':
-            os.makedirs(str(backupPath) + '/' + head)
+        backupSubFolder = str(backupPath) + '/' + head
+        if (not head == '' and not pathlib.Path(backupSubFolder).exists()):
+            os.makedirs(backupSubFolder)
         shutil.move(str(path), backup)
         print("Previous " + configName + " config saved in " + dotfilesPath +
               "/backup")
@@ -87,3 +90,4 @@ destination = '/home/' + user + '/.vimrc'
 createSymlink(source, destination)
 
 print("Config files successfully installed!")
+
