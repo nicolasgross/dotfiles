@@ -62,6 +62,7 @@ set completeopt=noselect,menuone,preview
 set clipboard=unnamedplus
 set textwidth=79
 set colorcolumn=80
+set showtabline=2
 highlight ColorColumn ctermbg=darkgrey
 filetype plugin indent on
 syntax enable
@@ -90,6 +91,8 @@ nnoremap <leader>fS :bufdo w<CR>
 nnoremap <leader>qq :qa<CR>
 nnoremap <leader>qQ :qa!<CR>
 " -- toggles
+nnoremap <leader>ta :let &textwidth=(&textwidth == "79"? "0" :
+	\ "79")<CR>
 nnoremap <leader>tb :let &background=(&background == "dark"? "light" :
 	\ "dark")<CR>
 nnoremap <leader>th :set hlsearch!<CR>
@@ -143,10 +146,13 @@ if !has('nvim')
 	set timeoutlen=2000
 	colorscheme industry
 	set listchars=tab:>\ ,trail:-
+	set laststatus=2
 else
 	"mappings - plugin dependent
 	" -- buffers
 	nnoremap <leader>bb :Buffers<CR>
+	nnoremap <leader>bc :Bdelete<CR>
+	nnoremap <leader>bC :Bdelete!<CR>
 	" -- files
 	nnoremap <leader>ff :Files .<CR>
 	nnoremap <leader>fF :Files ~<CR>
@@ -232,7 +238,6 @@ else
 		return [ g:bufferline_status_info.before,
 			\ g:bufferline_status_info.current, g:bufferline_status_info.after]
 	endfunction
-	set showtabline=2
 
 	"listtoggle
 	let g:toggle_list_no_mappings=1
@@ -295,6 +300,7 @@ else
 		\'S': 'search-in-all-buffers',
 		\}
 	let g:lmap.t={'name': '+Toggles',
+		\'a': 'auto-line-breaks',
 		\'b': 'background',
 		\'c': 'colorscheme',
 		\'e': 'error-checking',
