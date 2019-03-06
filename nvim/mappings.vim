@@ -83,7 +83,7 @@ if has('nvim')
 	nnoremap <leader>tc :Colors<CR>
 	nnoremap <leader>te :ALEToggle<CR>
 	nnoremap <leader>tt :NERDTreeToggle<CR>
-	nnoremap <leader>twl :ToggleLocationList<CR>
-	nnoremap <leader>twq :ToggleQuickfixList<CR>
+	nnoremap <leader>twl :call ToggleLocationList()<CR>
+	nnoremap <leader>twq :call ToggleQuickfixList()<CR>
 endif
 
