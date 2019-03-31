@@ -1,6 +1,7 @@
 "plugin independent:
 
 let mapleader="\<Space>"
+nnoremap <leader>m :messages<CR>
 " -- applications
 nnoremap <leader>at :terminal<CR>
 " -- init.vim
@@ -63,6 +64,7 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 "plugin dependent:
 
 if has('nvim')
+	nnoremap <leader>u :call dein#update()<CR> && :CocUpdate<CR>
 	" -- buffers
 	nnoremap <leader>bb :Buffers<CR>
 	nnoremap <leader>bc :Bdelete<CR>

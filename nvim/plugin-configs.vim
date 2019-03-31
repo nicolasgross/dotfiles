@@ -9,20 +9,6 @@ if has('nvim')
 		\ <bang>0 ? fzf#vim#with_preview('up:60%') :
 		\ fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
-	"deoplete
-	let g:deoplete#enable_at_startup=1
-	autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
-
-	"deoplete-clangx
-	call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
-
-	"ale
-	let g:ale_lint_on_text_changed=0
-	let g:ale_lint_on_enter=1
-	let g:ale_lint_on_save=1
-	let g:ale_linters={'c': ['gcc', 'clang-tidy', 'flawfinder']}
-	let g:ale_c_parse_compile_commands=1
-
 	"lightline
 	let g:lightline = {
 		\ 'colorscheme': 'powerline',
@@ -41,10 +27,12 @@ if has('nvim')
 		\   'linter_warnings': 'warning',
 		\   'linter_errors': 'error',
 		\ },
+		\ 'component_function': {
+		\   'cocstatus': 'coc#status'
+		\ },
 		\ 'active': {
-		\   'right': [[ 'lineinfo' ], [ 'percent' ], [ 'fileformat',
-		\            'fileencoding', 'filetype' ], [ 'linter_errors',
-		\            'linter_warnings', 'linter_checking' ]],
+		\   'right': [[ 'lineinfo' ], [ 'percent' ], [ 'cocstatus',
+		\            'fileformat', 'fileencoding', 'filetype' ]],
 		\   'left': [[ 'mode', 'paste' ], [ 'readonly', 'filename',
 		\           'modified' ]],
 		\ },
@@ -75,7 +63,10 @@ if has('nvim')
 	autocmd! FileType which_key
 	autocmd  FileType which_key set laststatus=0 noshowmode noruler
 		\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-	let g:lmap={}
+	let g:lmap={
+		\'m': 'messages',
+		\'u': 'update plugins',
+		\}
 	let g:lmap.a={'name': '+Applications',
 		\'t': 'terminal',
 		\}

@@ -7,24 +7,13 @@ if has('nvim')
 		call dein#add('/home/nicolas/.config/nvim/dein/repos/github.com/Shougo/
 			\dein.vim')
 
-		call dein#add('Shougo/deoplete.nvim')
-		call dein#add('Shougo/neco-syntax')
-		call dein#add('Shougo/deoplete-clangx',
-			\{'on_ft': ['c', 'cpp']})
-		call dein#add('Shougo/neoinclude.vim',
-			\{'on_ft': ['c', 'cpp']})
-		call dein#add('justinmk/vim-syntax-extra')
-		call dein#add('eagletmt/neco-ghc',
-			\{'on_ft': 'haskell'})
-		call dein#add('rust-lang/rust.vim',
-			\{'on_ft': 'rust'})
+		call dein#add('neoclide/coc.nvim',
+			\{'merge': 0, 'build': './install.sh nightly'})
 		call dein#add('lervag/vimtex',
 			\{'on_ft': 'tex'})
-		call dein#add('dag/vim-fish')
-		call dein#add('w0rp/ale')
+		call dein#add('justinmk/vim-syntax-extra')
 		call dein#add('vimwiki/vimwiki')
 		call dein#add('itchyny/lightline.vim')
-		call dein#add('maximbaz/lightline-ale')
 		call dein#add('bling/vim-bufferline')
 		call dein#add('morhetz/gruvbox')
 		call dein#add('lifepillar/vim-solarized8')
