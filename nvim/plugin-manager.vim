@@ -11,6 +11,8 @@ if has('nvim')
 			\{'merge': 0, 'build': './install.sh nightly'})
 		call dein#add('lervag/vimtex',
 			\{'on_ft': 'tex'})
+		call dein#add('w0rp/ale')
+		call dein#add('maximbaz/lightline-ale')
 		call dein#add('justinmk/vim-syntax-extra')
 		call dein#add('vimwiki/vimwiki')
 		call dein#add('itchyny/lightline.vim')

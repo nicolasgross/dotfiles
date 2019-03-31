@@ -9,6 +9,15 @@ if has('nvim')
 		\ <bang>0 ? fzf#vim#with_preview('up:60%') :
 		\ fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
+	"ale
+	let g:ale_linters_explicit=1
+	let g:ale_lint_on_text_changed=0
+	let g:ale_lint_on_enter=1
+	let g:ale_lint_on_save=1
+	let g:ale_linters={'tex': ['chktex']
+		\ }
+	let g:ale_c_parse_compile_commands=1
+
 	"lightline
 	let g:lightline = {
 		\ 'colorscheme': 'powerline',
@@ -32,7 +41,9 @@ if has('nvim')
 		\ },
 		\ 'active': {
 		\   'right': [[ 'lineinfo' ], [ 'percent' ], [ 'cocstatus',
-		\            'fileformat', 'fileencoding', 'filetype' ]],
+		\            'fileformat', 'fileencoding', 'filetype' ],
+		\            [ 'linter_errors', 'linter_warnings',
+		\            'linter_checking' ]],
 		\   'left': [[ 'mode', 'paste' ], [ 'readonly', 'filename',
 		\           'modified' ]],
 		\ },
