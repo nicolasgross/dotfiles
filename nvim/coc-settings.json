@@ -1,0 +1,11 @@
+{
+	"python.linting.flake8Enabled": true,
+	"languageserver": {
+		"clangd": {
+		"command": "clangd",
+		"rootPatterns": ["src/", "build/", ".git/", "compile_commands.json"],
+		"filetypes": ["c", "cpp", "cc", "objc", "objcpp"]
+		}
+	}
+}
+

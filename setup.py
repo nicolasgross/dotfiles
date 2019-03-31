@@ -15,7 +15,7 @@ home = ['.gitconfig', '.profile']
 # The list of files/dirs which should be linked to ~/.config
 dotConfig = ['fish', 'nvim/init.vim', 'nvim/mappings.vim',
              'nvim/smarttabs.vim', 'nvim/plugin-manager.vim',
-             'nvim/plugin-configs.vim']
+             'nvim/plugin-configs.vim', 'nvim/coc-settings.json']
 user = getpass.getuser()
 
 # Build path of the cloned dotfiles repository
