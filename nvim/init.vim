@@ -11,6 +11,7 @@ set mouse=r
 set number
 set omnifunc=syntaxcomplete#Complete
 set autoindent
+set hidden
 set list
 set listchars=tab:>.,trail:-,nbsp:+
 set incsearch ignorecase smartcase
