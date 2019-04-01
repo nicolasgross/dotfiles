@@ -8,7 +8,7 @@ if has('nvim')
 			\dein.vim')
 
 		call dein#add('neoclide/coc.nvim',
-			\{'merge': 0, 'build': './install.sh nightly'})
+			\{'merged': 0, 'build': './install.sh nightly'})
 		call dein#add('lervag/vimtex',
 			\{'on_ft': 'tex'})
 		call dein#add('w0rp/ale')
