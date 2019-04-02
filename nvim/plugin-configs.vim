@@ -14,8 +14,10 @@ if has('nvim')
 	let g:ale_lint_on_enter=1
 	let g:ale_lint_on_save=1
 	let g:ale_linters={'tex': ['chktex'],
-		\ 'c': ['flawfinder']
+		\ 'c': ['flawfinder'],
+		\ 'cpp': ['flawfinder'],
 		\ }
+	let g:ale_c_parse_compile_commands=1
 
 	"lightline
 	let g:lightline = {
@@ -66,7 +68,6 @@ if has('nvim')
 	let g:magit_commit_mapping="C"
 
 	"vim-which-key
-	set timeoutlen=500
 	nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 	vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 	call which_key#register('<Space>', "g:lmap")
