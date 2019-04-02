@@ -28,7 +28,11 @@ set colorcolumn=80
 set showtabline=2
 set lazyredraw
 set scrolloff=5
-set termguicolors
+
+if has('termguicolors')
+	set termguicolors
+endif
+
 highlight ColorColumn ctermbg=darkgrey
 filetype plugin indent on
 syntax enable
