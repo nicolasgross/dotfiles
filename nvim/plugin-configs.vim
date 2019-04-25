@@ -9,6 +9,9 @@ if has('nvim')
 		\ <bang>0 ? fzf#vim#with_preview('up:60%') :
 		\ fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
+	"vimtex
+	let g:vimtex_quickfix_mode=0
+
 	"ale
 	let g:ale_lint_on_text_changed=0
 	let g:ale_lint_on_enter=1
