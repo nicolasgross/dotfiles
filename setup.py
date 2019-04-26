@@ -92,7 +92,7 @@ createSymlink(source, destination)
 # Install vim-plug
 response = requests.get('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
 f = open('/home/' + user + '/.local/share/nvim/site/autoload/plug.vim', "w")
-f.write(response)
+f.write(response.text)
 f.close()
 
 
