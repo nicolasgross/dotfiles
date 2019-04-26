@@ -9,7 +9,7 @@ any plugins are shared between vim and neovim.
 ## Dependencies
 - git
 - python3 (for running the setup script)
-- ripgrep (for fzf in neovim)
+- fzf and ripgrep (for fzf in neovim and fish)
 - nodejs and yarn (for coc in neovim)
 
 
