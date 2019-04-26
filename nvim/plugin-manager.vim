@@ -1,37 +1,25 @@
 if has('nvim')
-	set runtimepath+=/home/nicolas/.config/nvim/dein/repos/github.com/
-		\Shougo/dein.vim
-	if dein#load_state('/home/nicolas/.config/nvim/dein')
-		call dein#begin('/home/nicolas/.config/nvim/dein')
+	call plug#begin('~/.local/share/nvim/plugged')
 
-		call dein#add('/home/nicolas/.config/nvim/dein/repos/github.com/Shougo/
-			\dein.vim')
+	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+	Plug 'lervag/vimtex', {'for': 'tex'}
+	Plug 'w0rp/ale'
+	Plug 'maximbaz/lightline-ale'
+	Plug 'justinmk/vim-syntax-extra'
+	Plug 'vimwiki/vimwiki'
+	Plug 'itchyny/lightline.vim'
+	Plug 'bling/vim-bufferline'
+	Plug 'morhetz/gruvbox'
+	Plug 'lifepillar/vim-solarized8'
+	Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+	Plug 'liuchengxu/vim-which-key'
+	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+	Plug 'junegunn/fzf.vim'
+	Plug 'milkypostman/vim-togglelist'
+	Plug 'jreybert/vimagit', {'on': 'Magit'}
+	Plug 'moll/vim-bbye'
+	Plug 'editorconfig/editorconfig-vim'
 
-		call dein#add('neoclide/coc.nvim',
-			\{'merged': 0, 'build': './install.sh nightly'})
-		call dein#add('lervag/vimtex',
-			\{'on_ft': 'tex'})
-		call dein#add('w0rp/ale')
-		call dein#add('maximbaz/lightline-ale')
-		call dein#add('justinmk/vim-syntax-extra')
-		call dein#add('vimwiki/vimwiki')
-		call dein#add('itchyny/lightline.vim')
-		call dein#add('bling/vim-bufferline')
-		call dein#add('morhetz/gruvbox')
-		call dein#add('lifepillar/vim-solarized8')
-		call dein#add('scrooloose/nerdtree',
-			\{'on_cmd': 'NERDTreeToggle'})
-		call dein#add('liuchengxu/vim-which-key')
-		call dein#add('junegunn/fzf', {'merged': 0})
-		call dein#add('junegunn/fzf.vim')
-		call dein#add('milkypostman/vim-togglelist')
-		call dein#add('jreybert/vimagit',
-			\{'on_cmd': 'Magit'})
-		call dein#add('moll/vim-bbye')
-		call dein#add('editorconfig/editorconfig-vim')
-
-		call dein#end()
-		call dein#save_state()
-	endif
+	call plug#end()
 endif
 

@@ -1,6 +1,17 @@
 # Nico's dotfiles
 This is a collection of my dotfiles.
 
+Vim has a minimal configuration without plugins whereas neovim is my main
+editor with all plugins enabled. Configuration options not related to any
+plugins is shared between vim and neovim.
+
+
+## Dependencies
+- git
+- ripgrep for fzf
+- nodejs, yarn for coc
+
+
 ## Installation
 1. Clone the repository:  
 `git clone https://github.com/nicolasgross/dotfiles`
@@ -8,8 +19,12 @@ This is a collection of my dotfiles.
 2. Run the setup script:  
 `python3 /path/to/cloned/repo/setup.py`
 
-3. Optional: Backup your old configuration files, which were copied to
+3. Install the neovim plugins. Type inside neovim:  
+`:PlugInstall`
+
+4. Optional: Backup your old configuration files, which were copied to
 `REPO_ROOT/backup/` by the setup script.
+
 
 ## License
 Unless otherwise stated at the top of a file, the contents of this repository

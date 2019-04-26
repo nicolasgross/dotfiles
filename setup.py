@@ -9,13 +9,12 @@ import getpass
 import sys
 import shutil
 import pathlib
+import requests
 
 # The list of files/dirs which should be linked to ~
 home = ['.gitconfig', '.profile']
 # The list of files/dirs which should be linked to ~/.config
-dotConfig = ['fish', 'nvim/init.vim', 'nvim/mappings.vim',
-             'nvim/smarttabs.vim', 'nvim/plugin-manager.vim',
-             'nvim/plugin-configs.vim', 'nvim/coc-settings.json']
+dotConfig = ['fish', 'nvim']
 user = getpass.getuser()
 
 # Build path of the cloned dotfiles repository
@@ -88,6 +87,14 @@ for i in dotConfig:
 source = dotfilesPath + '/nvim/init.vim'
 destination = '/home/' + user + '/.vimrc'
 createSymlink(source, destination)
+
+
+# Install vim-plug
+response = requests.get('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+f = open('/home/' + user + '/.local/share/nvim/site/autoload/plug.vim', "w")
+f.write(response)
+f.close()
+
 
 print("Config files successfully installed!")
 
