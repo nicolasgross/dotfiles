@@ -2,8 +2,8 @@
 This is a collection of my dotfiles.
 
 Vim has a minimal configuration without plugins whereas neovim is my main
-editor with all plugins enabled. Configuration options not related to any
-plugins is shared between vim and neovim.
+editor with all plugins enabled. Configuration options that are not related to
+any plugins are shared between vim and neovim.
 
 
 ## Dependencies
