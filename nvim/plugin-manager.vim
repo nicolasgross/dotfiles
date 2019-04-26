@@ -13,7 +13,6 @@ if has('nvim')
 	Plug 'lifepillar/vim-solarized8'
 	Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 	Plug 'liuchengxu/vim-which-key'
-	Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 	Plug 'junegunn/fzf.vim'
 	Plug 'milkypostman/vim-togglelist'
 	Plug 'jreybert/vimagit', {'on': 'Magit'}
