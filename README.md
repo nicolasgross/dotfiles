@@ -1,5 +1,10 @@
 # Nico's dotfiles
-This is a collection of my dotfiles.
+This is a collection of my dotfiles. They include configuration files for:
+- [git](https://git-scm.com)
+- [fish](https://fishshell.com) ( ... and bash such that fish is called instead
+  ... )
+- [vim](https://www.vim.org) and [neovim](https://neovim.io)
+- environment variables
 
 Vim has a minimal configuration without plugins whereas neovim is my main
 editor with all plugins enabled. Configuration options that are not related to
@@ -7,10 +12,12 @@ any plugins are shared between vim and neovim.
 
 
 ## Dependencies
-- git
-- python3 (for running the setup script)
-- fzf and ripgrep (for fzf in neovim and fish)
-- nodejs and yarn (for coc in neovim)
+- [git](https://git-scm.com) (for vim-plug in neovim)
+- [python 3](https://www.python.org) (for running the setup script)
+- [fzf](https://github.com/junegunn/fzf) and
+  [ripgrep](https://github.com/BurntSushi/ripgrep) (for fzf in neovim and fish)
+- [nodejs](https://nodejs.org/) and [yarn](https://yarnpkg.com) (for coc in
+  neovim)
 
 
 ## Installation
