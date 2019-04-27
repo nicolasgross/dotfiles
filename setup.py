@@ -12,7 +12,7 @@ import pathlib
 import requests
 
 # The list of files/dirs which should be linked to ~
-home = ['.gitconfig', '.profile']
+home = ['.gitconfig', '.profile', '.bashrc']
 # The list of files/dirs which should be linked to ~/.config
 dotConfig = ['fish', 'nvim']
 user = getpass.getuser()
