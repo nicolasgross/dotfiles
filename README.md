@@ -1,12 +1,11 @@
 # Nico's dotfiles
 This is a collection of my dotfiles. They include configuration files for:
 - [git](https://git-scm.com)
-- [fish](https://fishshell.com) ( ... and bash such that fish is called instead
-  ... )
+- [fish](https://fishshell.com) ( ... and bash that only calls fish ... )
 - [vim](https://www.vim.org) and [neovim](https://neovim.io)
 - environment variables
 
-Vim has a minimal configuration without plugins whereas neovim is my main
+Vim has a minimal configuration without plugins, whereas neovim is my main
 editor with all plugins enabled. Configuration options that are not related to
 any plugins are shared between vim and neovim.
 
