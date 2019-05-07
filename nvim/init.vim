@@ -15,6 +15,7 @@ set shiftwidth=4
 set mouse=r
 set autoread
 set number
+set spell
 set autoindent
 set hidden
 set list
@@ -29,6 +30,14 @@ set colorcolumn=80
 set showtabline=2
 set lazyredraw
 set scrolloff=5
+
+"for autoread in terminal mode
+if !has('gui_running')
+	let timer=timer_start(3000, 'AutoreadFunc', {'repeat': -1})
+	func! AutoreadFunc(timer)
+		:checktime
+	endfunc
+endif
 
 if has('termguicolors')
 	set termguicolors
