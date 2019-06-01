@@ -9,6 +9,9 @@ if has('nvim')
 		\ <bang>0 ? fzf#vim#with_preview('up:60%') :
 		\ fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
+	"coc
+	let g:coc_force_debug=1
+
 	"vimtex
 	let g:vimtex_quickfix_mode=0
 
@@ -16,9 +19,11 @@ if has('nvim')
 	let g:ale_lint_on_text_changed=0
 	let g:ale_lint_on_enter=1
 	let g:ale_lint_on_save=1
-	let g:ale_linters={'tex': ['chktex'],
+	let g:ale_linters={
+		\ 'tex': ['chktex'],
 		\ 'c': ['flawfinder'],
 		\ 'cpp': ['flawfinder'],
+		\ 'python': ['pylint'],
 		\ }
 	let g:ale_c_parse_compile_commands=1
 

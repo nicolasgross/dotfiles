@@ -1,6 +1,7 @@
 {
 	"diagnostic.displayByAle": true,
-	"python.linting.flake8Enabled": true,
+	"python.jediEnabled": false,
+	"python.linting.enabled": false,
 	"languageserver": {
 		"clangd": {
 		"command": "clangd",

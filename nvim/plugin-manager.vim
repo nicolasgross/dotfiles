@@ -1,10 +1,11 @@
 if has('nvim')
 	call plug#begin('~/.local/share/nvim/plugged')
 
-	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+	Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'lervag/vimtex', {'for': 'tex'}
 	Plug 'w0rp/ale'
 	Plug 'maximbaz/lightline-ale'
+	Plug 'honza/vim-snippets'
 	Plug 'justinmk/vim-syntax-extra'
 	Plug 'vimwiki/vimwiki'
 	Plug 'itchyny/lightline.vim'
