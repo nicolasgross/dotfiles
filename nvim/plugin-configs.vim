@@ -23,7 +23,7 @@ if has('nvim')
 		\ 'tex': ['chktex'],
 		\ 'c': ['flawfinder'],
 		\ 'cpp': ['flawfinder'],
-		\ 'python': ['pylint'],
+		\ 'python': ['flake8'],
 		\ }
 	let g:ale_c_parse_compile_commands=1
 
