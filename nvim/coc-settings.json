@@ -1,12 +1,19 @@
 {
-	"diagnostic.displayByAle": true,
 	"python.jediEnabled": true,
-	"python.linting.enabled": false,
+	"python.linting.flake8Enabled": true,
+	"python.linting.pylintEnabled": true,
+	"latex.build.onSave": true,
+	"latex.forwardSearch.executable": "/usr/bin/evince",
 	"languageserver": {
 		"clangd": {
-		"command": "clangd",
-		"rootPatterns": ["src/", "build/", ".git/", "compile_commands.json"],
-		"filetypes": ["c", "cpp", "cc", "objc", "objcpp"]
+			"command": "clangd",
+			"rootPatterns": ["src/", "build/", ".git/", "compile_commands.json"],
+			"filetypes": ["c", "cpp", "cc", "objc", "objcpp"]
+		},
+		"metals": {
+			"command": "metals-vim",
+			"rootPatterns": ["build.sbt"],
+			"filetypes": ["scala", "sbt"]
 		}
 	}
 }

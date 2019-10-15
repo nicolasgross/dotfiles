@@ -1,7 +1,7 @@
 # Nico's dotfiles
 This is a collection of my dotfiles. They include configuration files for:
 - [git](https://git-scm.com)
-- [fish](https://fishshell.com) ( ... and bash that only calls fish ... )
+- [fish](https://fishshell.com)
 - [vim](https://www.vim.org) and [neovim](https://neovim.io)
 - environment variables
 

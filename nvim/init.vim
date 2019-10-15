@@ -16,6 +16,7 @@ set mouse=r
 set autoread
 set number
 set spell
+set spelllang=de,en_us
 set autoindent
 set hidden
 set list
@@ -53,14 +54,14 @@ nnoremap Q <Nop>
 
 if has('nvim')
 	set timeoutlen=500
-	colorscheme gruvbox
-	set background=dark
+	colorscheme nord
+	" set background=dark
 	
 	"cursor
-	set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,
-		\i-ci:ver25-Cursor/lCursor-blinkon1,r-cr:hor20-Cursor/lCursor,
-		\o:hor20-Cursor/block-Cursor
-	au VimLeave * set guicursor=a:block-Cursor/lCursor-blinkon1
+	"set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,
+	"	\i-ci:ver25-Cursor/lCursor-blinkon1,r-cr:hor20-Cursor/lCursor,
+	"	\o:hor20-Cursor/block-Cursor
+	"au VimLeave * set guicursor=a:lCursor-blinkon1
 else
 	set timeoutlen=2000
 	colorscheme desert

@@ -12,47 +12,24 @@ if has('nvim')
 	"coc
 	let g:coc_force_debug=1
 
-	"vimtex
-	let g:vimtex_quickfix_mode=0
-
-	"ale
-	let g:ale_lint_on_text_changed=0
-	let g:ale_lint_on_enter=1
-	let g:ale_lint_on_save=1
-	let g:ale_linters={
-		\ 'tex': ['chktex'],
-		\ 'c': ['flawfinder'],
-		\ 'cpp': ['flawfinder'],
-		\ 'python': ['flake8'],
-		\ }
-	let g:ale_c_parse_compile_commands=1
-
 	"lightline
 	let g:lightline = {
-		\ 'colorscheme': 'powerline',
+		\ 'colorscheme': 'nord',
 		\ 'tabline': {
 		\   'left': [ ['bufferline'] ]
 		\ },
 		\ 'component_expand': {
 		\   'bufferline': 'LightlineBufferline',
-		\   'linter_checking': 'lightline#ale#checking',
-		\   'linter_warnings': 'lightline#ale#warnings',
-		\   'linter_errors': 'lightline#ale#errors',
 		\ },
 		\ 'component_type': {
 		\   'bufferline': 'tabsel',
-		\   'linter_checking': 'left',
-		\   'linter_warnings': 'warning',
-		\   'linter_errors': 'error',
 		\ },
 		\ 'component_function': {
 		\   'cocstatus': 'coc#status'
 		\ },
 		\ 'active': {
 		\   'right': [[ 'lineinfo' ], [ 'percent' ], [ 'cocstatus',
-		\            'fileformat', 'fileencoding', 'filetype' ],
-		\            [ 'linter_errors', 'linter_warnings',
-		\            'linter_checking' ]],
+		\            'fileformat', 'fileencoding', 'filetype' ]],
 		\   'left': [[ 'mode', 'paste' ], [ 'readonly', 'filename',
 		\           'modified' ]],
 		\ },

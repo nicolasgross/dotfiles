@@ -64,8 +64,8 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 "plugin dependent:
 
 if has('nvim')
-	command! UpdateAll PlugUpdate | PlugUpgrade | CocUpdate
-	nnoremap <leader>u :UpdateAll<CR>
+	command! UpdateVimPlug PlugUpdate | PlugUpgrade
+	nnoremap <leader>u :UpdateVimPlug<CR>
 	" -- buffers
 	nnoremap <leader>bb :Buffers<CR>
 	nnoremap <leader>bc :Bdelete<CR>
