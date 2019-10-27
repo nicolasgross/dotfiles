@@ -15,5 +15,3 @@ fi
 
 export EDITOR="/usr/bin/nvim"
 
-#export QT_AUTO_SCREEN_SCALE_FACTOR=1.15
-

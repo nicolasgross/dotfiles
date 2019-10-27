@@ -54,11 +54,9 @@ nnoremap <leader>wS :split\|wincmd w<CR>
 nnoremap <leader>wv :vsplit<CR>
 nnoremap <leader>wV :vsplit\|wincmd w<CR>
 " -- completion popup
-inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
 
 
 "plugin dependent:
@@ -88,5 +86,8 @@ if has('nvim')
 	nnoremap <leader>tt :NERDTreeToggle<CR>
 	nnoremap <leader>twl :call ToggleLocationList()<CR>
 	nnoremap <leader>twq :call ToggleQuickfixList()<CR>
+else
+	" -- completion
+	inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 endif
 

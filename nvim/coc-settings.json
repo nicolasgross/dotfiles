@@ -1,4 +1,5 @@
 {
+	"suggest.enablePreselect": false,
 	"python.jediEnabled": true,
 	"python.linting.flake8Enabled": true,
 	"python.linting.pylintEnabled": true,

@@ -15,8 +15,7 @@ set shiftwidth=4
 set mouse=r
 set autoread
 set number
-set spell
-set spelllang=de,en_us
+set spelllang=de_de,en_us
 set autoindent
 set hidden
 set list
@@ -24,7 +23,7 @@ set listchars=tab:>.,trail:-,nbsp:+
 set incsearch
 set ignorecase
 set smartcase
-set completeopt=noselect,menuone,preview
+set completeopt=noselect,noinsert,menuone,preview
 set clipboard=unnamedplus
 set textwidth=79
 set colorcolumn=80
@@ -44,7 +43,6 @@ if has('termguicolors')
 	set termguicolors
 endif
 
-highlight ColorColumn ctermbg=darkgrey
 filetype plugin indent on
 syntax enable
 let g:tex_flavor="latex"
@@ -55,17 +53,10 @@ nnoremap Q <Nop>
 if has('nvim')
 	set timeoutlen=500
 	colorscheme nord
-	" set background=dark
-	
-	"cursor
-	"set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,
-	"	\i-ci:ver25-Cursor/lCursor-blinkon1,r-cr:hor20-Cursor/lCursor,
-	"	\o:hor20-Cursor/block-Cursor
-	"au VimLeave * set guicursor=a:lCursor-blinkon1
 else
 	set timeoutlen=2000
-	colorscheme desert
-	set background=dark
+	colorscheme slate
+	highlight ColorColumn guibg=Black
 	set laststatus=2
 endif
 
