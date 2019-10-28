@@ -31,6 +31,9 @@ set showtabline=2
 set lazyredraw
 set scrolloff=5
 
+" restore terminal cursor on leave
+au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon1
+
 "for autoread in terminal mode
 if !has('gui_running')
 	let timer=timer_start(3000, 'AutoreadFunc', {'repeat': -1})

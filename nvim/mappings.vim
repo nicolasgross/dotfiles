@@ -1,5 +1,6 @@
 "plugin independent:
 
+" -- SPACEMACS EXPERIENCE
 let mapleader="\<Space>"
 nnoremap <leader>m :messages<CR>
 " -- applications
@@ -53,10 +54,17 @@ nnoremap <leader>ws :split<CR>
 nnoremap <leader>wS :split\|wincmd w<CR>
 nnoremap <leader>wv :vsplit<CR>
 nnoremap <leader>wV :vsplit\|wincmd w<CR>
+
+
 " -- completion popup
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
+
+
+" -- terminal
+"tnoremap <Esc> <C-\><C-n>
+tnoremap <C-[><C-[> <C-\><C-n>
 
 
 "plugin dependent:
