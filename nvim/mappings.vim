@@ -37,12 +37,12 @@ nnoremap <leader>ts :set spell!<CR>
 nnoremap <leader>w= :wincmd =<CR>
 nnoremap <leader>wc :q<CR>
 nnoremap <leader>wC :q!<CR>
-nnoremap <leader>wd :resize -5<CR>
-nnoremap <leader>wD :vertical resize -10<CR>
+nnoremap <leader>wd :vertical resize -10<CR>
+nnoremap <leader>wD :resize -5<CR>
 nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wH :wincmd H<CR>
-nnoremap <leader>wi :resize +5<CR>
-nnoremap <leader>wI :vertical resize +10<CR>
+nnoremap <leader>wi :vertical resize +10<CR>
+nnoremap <leader>wI :resize +5<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>wJ :wincmd J<CR>
 nnoremap <leader>wk :wincmd k<CR>

@@ -9,9 +9,6 @@ if has('nvim')
 		\ <bang>0 ? fzf#vim#with_preview('up:60%') :
 		\ fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
-	"coc
-	let g:coc_force_debug=1
-
 	"lightline
 	let g:lightline = {
 		\ 'colorscheme': 'nord',
@@ -123,12 +120,12 @@ if has('nvim')
 		\'=': 'balance-windows',
 		\'c': 'close-window',
 		\'C': 'ace-kill-window',
-		\'d': 'decrease-window-hor',
-		\'D': 'decrease-window-vert',
+		\'d': 'decrease-window-vert',
+		\'D': 'decrease-window-hor',
 		\'h': 'focus-window-left',
 		\'H': 'move-window-left',
-		\'i': 'increase-window-hor',
-		\'I': 'increase-window-vert',
+		\'i': 'increase-window-vert',
+		\'I': 'increase-window-hor',
 		\'j': 'focus-window-down',
 		\'J': 'move-window-down',
 		\'k': 'focus-window-up',
