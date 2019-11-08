@@ -167,6 +167,11 @@
 #     dirtystate        Defaults to red
 #     stagedstate       Defaults to green
 #     flags             Defaults to --bold blue
+#
+#
+# The branch name could be shorten via
+# __fish_git_prompt_shorten_branch_len. Define the branch max len.
+# __fish_git_prompt_shorten_branch_char_suffix. Customize suffixed char of shorten branch. Defaults to (…).
 
 function __fish_git_prompt_show_upstream --description "Helper function for __fish_git_prompt"
     set -q __fish_git_prompt_showupstream
@@ -188,7 +193,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
 
     set -l svn_remote
     # get some config options from git-config
-    command git config -z --get-regexp '^(svn-remote\..*\.url|bash\.showupstream)$' ^/dev/null | while read -lz key value
+    command git config -z --get-regexp '^(svn-remote\..*\.url|bash\.showupstream)$' 2>/dev/null | while read -lz key value
         switch $key
             case bash.showupstream
                 set show_upstream $value
@@ -236,7 +241,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
         case svn\*
             # get the upstream from the 'git-svn-id: …' in a commit message
             # (git-svn uses essentially the same procedure internally)
-            set -l svn_upstream (git log --first-parent -1 --grep="^git-svn-id: \($svn_url_pattern\)" ^/dev/null)
+            set -l svn_upstream (git log --first-parent -1 --grep="^git-svn-id: \($svn_url_pattern\)" 2>/dev/null)
             if test (count $svn_upstream) -ne 0
                 echo $svn_upstream[-1] | read -l __ svn_upstream __
                 set svn_upstream (string replace -r '@.*' '' -- $svn_upstream)
@@ -265,8 +270,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
                     # Use fetch config to fix upstream
                     set -l fetch_val (command git config "$cur_prefix".fetch)
                     if test -n "$fetch_val"
-                        set -l IFS :
-                        echo "$fetch_val" | read -l trunk pattern
+                        string split -m1 : -- "$fetch_val" | read -l trunk pattern
                         set upstream (string replace -r -- "/$trunk\$" '' $pattern) /$upstream
                     end
                 end
@@ -276,7 +280,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
     end
 
     # Find how many commits we are ahead/behind our upstream
-    set count (command git rev-list --count --left-right $upstream...HEAD ^/dev/null)
+    set count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
 
     # calculate the result
     if test -n "$verbose"
@@ -300,7 +304,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
                 echo "$prefix$___fish_git_prompt_char_upstream_diverged$ahead-$behind"
         end
         if test -n "$count" -a -n "$name"
-            echo " "(command git rev-parse --abbrev-ref "$upstream" ^/dev/null)
+            echo " "(command git rev-parse --abbrev-ref "$upstream" 2>/dev/null)
         end
     else if test -n "$informative"
         echo $count | read -l behind ahead
@@ -335,7 +339,7 @@ function __fish_git_prompt --description "Prompt function for Git"
     if not command -sq git
         return 1
     end
-    set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree HEAD ^/dev/null)
+    set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree HEAD 2>/dev/null)
     test -n "$repo_info"
     or return
 
@@ -358,8 +362,13 @@ function __fish_git_prompt --description "Prompt function for Git"
     set -l p #upstream
     set -l informative_status
 
-    __fish_git_prompt_validate_chars
-    __fish_git_prompt_validate_colors
+    if not set -q ___fish_git_prompt_init
+        # This takes a while, so it only needs to be done once,
+        # and then whenever the configuration changes.
+        __fish_git_prompt_validate_chars
+        __fish_git_prompt_validate_colors
+        set -g ___fish_git_prompt_init
+    end
 
     set -l space "$___fish_git_prompt_color$___fish_git_prompt_char_stateseparator$___fish_git_prompt_color_done"
 
@@ -384,9 +393,7 @@ function __fish_git_prompt --description "Prompt function for Git"
             if set -q __fish_git_prompt_showuntrackedfiles
                 set -l config (command git config --bool bash.showUntrackedFiles)
                 if test "$config" != false
-                    if command git ls-files --others --exclude-standard --directory --no-empty-directory --error-unmatch -- '*' >/dev/null ^/dev/null
-                        set u $___fish_git_prompt_char_untrackedfiles
-                    end
+                    set u (__fish_git_prompt_untracked)
                 end
             end
         end
@@ -418,10 +425,17 @@ function __fish_git_prompt --description "Prompt function for Git"
     if test -n "$u"
         set u "$___fish_git_prompt_color_untrackedfiles$u$___fish_git_prompt_color_untrackedfiles_done"
     end
+
     set b (string replace refs/heads/ '' -- $b)
+    set -q __fish_git_prompt_shorten_branch_char_suffix
+    or set -l __fish_git_prompt_shorten_branch_char_suffix "…"
+    if string match -qr '^\d+$' "$__fish_git_prompt_shorten_branch_len"; and test (string length "$b") -gt $__fish_git_prompt_shorten_branch_len
+        set b (string sub -l "$__fish_git_prompt_shorten_branch_len" "$b")"$__fish_git_prompt_shorten_branch_char_suffix"
+    end
     if test -n "$b"
         set b "$branch_color$b$branch_done"
     end
+
     if test -n "$c"
         set c "$___fish_git_prompt_color_bare$c$___fish_git_prompt_color_bare_done"
     end
@@ -436,7 +450,7 @@ function __fish_git_prompt --description "Prompt function for Git"
     # Formatting
     set -l f "$w$i$s$u"
     if test -n "$f"
-		set f "$f$space"
+        set f "$space$f"
     end
     set -l format $argv[1]
     if test -z "$format"
@@ -456,7 +470,7 @@ function __fish_git_prompt_staged --description "__fish_git_prompt helper, tells
     set -l staged
 
     if test -n "$sha"
-        command git diff-index --cached --quiet HEAD -- ^/dev/null
+        command git diff-index --cached --quiet HEAD -- 2>/dev/null
         or set staged $___fish_git_prompt_char_stagedstate
     else
         set staged $___fish_git_prompt_char_invalidstate
@@ -464,11 +478,19 @@ function __fish_git_prompt_staged --description "__fish_git_prompt helper, tells
     echo $staged
 end
 
+function __fish_git_prompt_untracked --description "__fish_git_prompt helper, tells whether or not the current repository has untracked files"
+    set -l untracked
+    if command git ls-files --others --exclude-standard --directory --no-empty-directory --error-unmatch -- :/ >/dev/null 2>&1
+        set untracked $___fish_git_prompt_char_untrackedfiles
+    end
+    echo $untracked
+end
+
 function __fish_git_prompt_dirty --description "__fish_git_prompt helper, tells whether or not the current branch has tracked, modified files"
     set -l dirty
 
     set -l os
-    command git diff --no-ext-diff --quiet --exit-code ^/dev/null
+    command git diff --no-ext-diff --quiet --exit-code 2>/dev/null
     set os $status
     if test $os -ne 0
         set dirty $___fish_git_prompt_char_dirtystate
@@ -480,18 +502,21 @@ set -g ___fish_git_prompt_status_order stagedstate invalidstate dirtystate untra
 
 function __fish_git_prompt_informative_status
 
-    set -l changedFiles (command git diff --name-status | string match -r \\w)
+    set -l changedFiles (command git diff --name-status 2>/dev/null | string match -r \\w)
     set -l stagedFiles (command git diff --staged --name-status | string match -r \\w)
 
-    set -l dirtystate (math (count $changedFiles) - (count (string match -r "U" -- $changedFiles)) ^/dev/null)
+    set -l x (count $changedFiles)
+    set -l y (count (string match -r "U" -- $changedFiles))
+    set -l dirtystate (math $x - $y)
+    set -l x (count $stagedFiles)
     set -l invalidstate (count (string match -r "U" -- $stagedFiles))
-    set -l stagedstate (math (count $stagedFiles) - $invalidstate ^/dev/null)
+    set -l stagedstate (math $x - $invalidstate)
     set -l untrackedfiles (command git ls-files --others --exclude-standard | wc -l | string trim)
 
     set -l info
 
     # If `math` fails for some reason, assume the state is clean - it's the simpler path
-    set -l state (math $dirtystate + $invalidstate + $stagedstate + $untrackedfiles ^/dev/null)
+    set -l state (math $dirtystate + $invalidstate + $stagedstate + $untrackedfiles 2>/dev/null)
     if test -z "$state"
         or test "$state" = 0
         set info $___fish_git_prompt_color_cleanstate$___fish_git_prompt_char_cleanstate$___fish_git_prompt_color_cleanstate_done
@@ -539,9 +564,9 @@ function __fish_git_prompt_operation_branch_bare --description "__fish_git_promp
     set -l os
 
     if test -d $git_dir/rebase-merge
-        set branch (cat $git_dir/rebase-merge/head-name ^/dev/null)
-        set step (cat $git_dir/rebase-merge/msgnum ^/dev/null)
-        set total (cat $git_dir/rebase-merge/end ^/dev/null)
+        set branch (cat $git_dir/rebase-merge/head-name 2>/dev/null)
+        set step (cat $git_dir/rebase-merge/msgnum 2>/dev/null)
+        set total (cat $git_dir/rebase-merge/end 2>/dev/null)
         if test -f $git_dir/rebase-merge/interactive
             set operation "|REBASE-i"
         else
@@ -549,10 +574,10 @@ function __fish_git_prompt_operation_branch_bare --description "__fish_git_promp
         end
     else
         if test -d $git_dir/rebase-apply
-            set step (cat $git_dir/rebase-apply/next ^/dev/null)
-            set total (cat $git_dir/rebase-apply/last ^/dev/null)
+            set step (cat $git_dir/rebase-apply/next 2>/dev/null)
+            set total (cat $git_dir/rebase-apply/last 2>/dev/null)
             if test -f $git_dir/rebase-apply/rebasing
-                set branch (cat $git_dir/rebase-apply/head-name ^/dev/null)
+                set branch (cat $git_dir/rebase-apply/head-name 2>/dev/null)
                 set operation "|REBASE"
             else if test -f $git_dir/rebase-apply/applying
                 set operation "|AM"
@@ -575,7 +600,7 @@ function __fish_git_prompt_operation_branch_bare --description "__fish_git_promp
     end
 
     if test -z "$branch"
-        set branch (command git symbolic-ref HEAD ^/dev/null; set os $status)
+        set branch (command git symbolic-ref HEAD 2>/dev/null; set os $status)
         if test $os -ne 0
             set detached yes
             set branch (switch "$__fish_git_prompt_describe_style"
@@ -587,7 +612,7 @@ function __fish_git_prompt_operation_branch_bare --description "__fish_git_promp
 							command git describe HEAD
 						case default '*'
 							command git describe --tags --exact-match HEAD
-						end ^/dev/null; set os $status)
+						end 2>/dev/null; set os $status)
             if test $os -ne 0
                 # Shorten the sha ourselves to 8 characters - this should be good for most repositories,
                 # and even for large ones it should be good for most commits
@@ -729,7 +754,7 @@ end
 
 set -l varargs
 for var in repaint describe_style show_informative_status showdirtystate showstashstate showuntrackedfiles showupstream
-    set varargs $varargs --on-variable __fish_git_prompt_$var
+    set -a varargs --on-variable __fish_git_prompt_$var
 end
 function __fish_git_prompt_repaint $varargs --description "Event handler, repaints prompt when functionality changes"
     if status --is-interactive
@@ -740,17 +765,18 @@ function __fish_git_prompt_repaint $varargs --description "Event handler, repain
             end
         end
 
-        commandline -f repaint ^/dev/null
+        commandline -f repaint 2>/dev/null
     end
 end
 
 set -l varargs
 for var in '' _prefix _suffix _bare _merging _cleanstate _invalidstate _upstream _flags _branch _dirtystate _stagedstate _branch_detached _stashstate _untrackedfiles
-    set varargs $varargs --on-variable __fish_git_prompt_color$var
+    set -a varargs --on-variable __fish_git_prompt_color$var
 end
-set varargs $varargs --on-variable __fish_git_prompt_showcolorhints
+set -a varargs --on-variable __fish_git_prompt_showcolorhints
 function __fish_git_prompt_repaint_color $varargs --description "Event handler, repaints prompt when any color changes"
     if status --is-interactive
+        set -e ___fish_git_prompt_init
         set -l var $argv[3]
         set -e _$var
         set -e _{$var}_done
@@ -761,17 +787,18 @@ function __fish_git_prompt_repaint_color $varargs --description "Event handler, 
                 set -e ___fish_git_prompt_color_{$name}_done
             end
         end
-        commandline -f repaint ^/dev/null
+        commandline -f repaint 2>/dev/null
     end
 end
 
 set -l varargs
 for var in cleanstate dirtystate invalidstate stagedstate stashstate stateseparator untrackedfiles upstream_ahead upstream_behind upstream_diverged upstream_equal upstream_prefix
-    set varargs $varargs --on-variable __fish_git_prompt_char_$var
+    set -a varargs --on-variable __fish_git_prompt_char_$var
 end
 function __fish_git_prompt_repaint_char $varargs --description "Event handler, repaints prompt when any char changes"
     if status --is-interactive
+        set -e ___fish_git_prompt_init
         set -e _$argv[3]
-        commandline -f repaint ^/dev/null
+        commandline -f repaint 2>/dev/null
     end
 end
