@@ -374,7 +374,9 @@ function __fish_git_prompt --description "Prompt function for Git"
 
     if test "true" = $inside_worktree
         if set -q __fish_git_prompt_show_informative_status
-# CHANGES STARTING HERE, REMOVED $SPACE BEFORE INFORMATIVE STATUS
+# -----------------------------------------------------------------------------
+# CHANGES START HERE: REMOVED $SPACE BEFORE INFORMATIVE STATUS
+# -----------------------------------------------------------------------------
             set informative_status (__fish_git_prompt_informative_status)
         else
             if set -q __fish_git_prompt_showdirtystate
@@ -443,7 +445,9 @@ function __fish_git_prompt --description "Prompt function for Git"
         set r "$___fish_git_prompt_color_merging$r$___fish_git_prompt_color_merging_done"
     end
     if test -n "$p"
-# CHANGES ADDED $SPACE
+# -----------------------------------------------------------------------------
+# CHANGES: ADDED $SPACE
+# -----------------------------------------------------------------------------
         set p "$___fish_git_prompt_color_upstream$p$space$___fish_git_prompt_color_upstream_done"
     end
 
@@ -454,11 +458,15 @@ function __fish_git_prompt --description "Prompt function for Git"
     end
     set -l format $argv[1]
     if test -z "$format"
-# CHANGES REMOVED BRACKETS
+# -----------------------------------------------------------------------------
+# CHANGES: REMOVED BRACKETS
+# -----------------------------------------------------------------------------
         set format " %s"
     end
 
-# CHANGES ADD BRACKETS
+# -----------------------------------------------------------------------------
+# CHANGES END HERE: ADD BRACKETS
+# -----------------------------------------------------------------------------
     printf "%s$format%s" "$___fish_git_prompt_color_prefix" "$___fish_git_prompt_color_prefix_done$c$b [$f$r$p$informative_status]$___fish_git_prompt_color_suffix" "$___fish_git_prompt_color_suffix_done"
 end
 

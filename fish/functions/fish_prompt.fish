@@ -45,20 +45,13 @@ function show_user -d "Show user"
 	prompt_segment normal white " in "
 end
 
-## ???
-function _set_venv_project --on-variable VIRTUAL_ENV
-	if test -e $VIRTUAL_ENV/.project
-		set -g VIRTUAL_ENV_PROJECT (cat $VIRTUAL_ENV/.project)
-	end
-end
-
 # Show directory
 function show_pwd -d "Show the current directory"
 	set -l pwd
 	if [ (string match -r '^'"$VIRTUAL_ENV_PROJECT" $PWD) ]
 		set pwd (string replace -r '^'"$VIRTUAL_ENV_PROJECT"'($|/)' '≫ $1' $PWD)
 	else
-		set pwd (dirs)
+		set pwd (prompt_pwd)
 	end
 	prompt_segment normal green "$pwd"
 end
@@ -69,42 +62,17 @@ function show_git_status -d "Gets the current git status"
 	if not set -q __fish_git_prompt_show_informative_status
 		set -g __fish_git_prompt_show_informative_status 1
 	end
-	if not set -q __fish_git_prompt_hide_untrackedfiles
-		set -g __fish_git_prompt_hide_untrackedfiles 1
+
+	if not set -q __fish_git_prompt_char_dirtystate
+		set -g __fish_git_prompt_char_dirtystate "+"
+	end
+	if not set -q __fish_git_prompt_char_conflictedstate
+		set -g __fish_git_prompt_char_conflictedstate "x"
 	end
 
 	if not set -q __fish_git_prompt_color_branch
 		set -g __fish_git_prompt_color_branch magenta --bold
 	end
-	if not set -q __fish_git_prompt_showupstream
-		set -g __fish_git_prompt_showupstream "informative"
-	end
-	if not set -q __fish_git_prompt_char_upstream_ahead
-		set -g __fish_git_prompt_char_upstream_ahead "↑"
-	end
-	if not set -q __fish_git_prompt_char_upstream_behind
-		set -g __fish_git_prompt_char_upstream_behind "↓"
-	end
-	if not set -q __fish_git_prompt_char_upstream_prefix
-		set -g __fish_git_prompt_char_upstream_prefix ""
-	end
-
-	if not set -q __fish_git_prompt_char_stagedstate
-		set -g __fish_git_prompt_char_stagedstate "●"
-	end
-	if not set -q __fish_git_prompt_char_dirtystate
-		set -g __fish_git_prompt_char_dirtystate "+"
-	end
-	if not set -q __fish_git_prompt_char_untrackedfiles
-		set -g __fish_git_prompt_char_untrackedfiles "…"
-	end
-	if not set -q __fish_git_prompt_char_conflictedstate
-		set -g __fish_git_prompt_char_conflictedstate "✖"
-	end
-	if not set -q __fish_git_prompt_char_cleanstate
-		set -g __fish_git_prompt_char_cleanstate "✔"
-	end
-
 	if not set -q __fish_git_prompt_color_dirtystate
 		set -g __fish_git_prompt_color_dirtystate yellow
 	end
@@ -123,10 +91,7 @@ function show_git_status -d "Gets the current git status"
 	
 	set tmp (__fish_vcs_prompt)
 	if not test "$tmp" = ""
-		#set tmp (string replace -r '\|' ' [' $tmp)
-		#set tmp (string replace -r '\(' '' $tmp)
-		#set tmp (string replace -r '\)' ']' $tmp)
-		prompt_segment normal white "on"
+		prompt_segment normal white " on"
 		set_color normal
 		printf '%s ' $tmp
 	end
@@ -147,9 +112,6 @@ function fish_prompt
 	echo -e ''
 	show_ssh
 	show_virtualenv
-#	if not command git rev-parse --is-inside-work-tree >/dev/null 2>&1
-#		show_user
-#	end
 	show_user
 	show_pwd
 	show_git_status
