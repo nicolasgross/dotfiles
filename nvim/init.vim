@@ -30,6 +30,7 @@ set colorcolumn=80
 set showtabline=2
 set lazyredraw
 set scrolloff=5
+set conceallevel=2
 
 " restore terminal cursor on leave
 au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon1
@@ -42,19 +43,17 @@ if !has('gui_running')
 	endfunc
 endif
 
-if has('termguicolors')
-	set termguicolors
-endif
-
 filetype plugin indent on
 syntax enable
 let g:tex_flavor="latex"
 
-"disable ex mode
-nnoremap Q <Nop>
+if has('termguicolors')
+	set termguicolors
+endif
 
 if has('nvim')
 	set timeoutlen=500
+	let g:nord_italic=1
 	colorscheme nord
 else
 	set timeoutlen=2000
@@ -62,6 +61,9 @@ else
 	highlight ColorColumn guibg=Black
 	set laststatus=2
 endif
+
+"disable ex mode
+nnoremap Q <Nop>
 
 source ~/.config/nvim/smarttabs.vim
 source ~/.config/nvim/mappings.vim

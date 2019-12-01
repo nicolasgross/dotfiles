@@ -44,6 +44,10 @@ if has('nvim')
 	let g:vimwiki_list=[{'path': '~/nextcloud/documents/vimwiki/',
 		\ 'syntax': 'markdown', 'ext': '.md'}]
 	let g:vimwiki_map_prefix='<Leader>v'
+	let g:vimwiki_global_ext=0
+
+	"vim-markdown
+	let g:vim_markdown_folding_disabled=1
 
 	"vimagit
 	let g:magit_show_magit_mapping=''

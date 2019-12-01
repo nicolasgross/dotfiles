@@ -9,6 +9,7 @@ if has('nvim')
 	Plug 'fannheyward/coc-texlab', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'honza/vim-snippets'
 	Plug 'justinmk/vim-syntax-extra'
+	Plug 'plasticboy/vim-markdown'
 	Plug 'vimwiki/vimwiki'
 	Plug 'itchyny/lightline.vim'
 	Plug 'bling/vim-bufferline'
