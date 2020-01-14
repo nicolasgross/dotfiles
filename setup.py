@@ -36,7 +36,7 @@ else:
 def configBackup(path, configName):
     if (path.exists() or os.path.islink(str(path))):
         backup = str(backupPath) + '/' + configName
-        head, tail = os.path.split(configName)
+        head, _ = os.path.split(configName)
         backupSubFolder = str(backupPath) + '/' + head
         if (not head == '' and not pathlib.Path(backupSubFolder).exists()):
             os.makedirs(backupSubFolder)
@@ -64,7 +64,7 @@ configBackup(file, '.vimrc')
 # CREATE SYMLINKS
 
 def createSymlink(source, destination):
-    head, tail = os.path.split(destination)
+    head, _ = os.path.split(destination)
     if (not pathlib.Path(head).exists()):
         os.makedirs(head)
     os.symlink(source, destination)
@@ -90,11 +90,14 @@ createSymlink(source, destination)
 
 
 # Install vim-plug
-response = requests.get('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-f = open('/home/' + user + '/.local/share/nvim/site/autoload/plug.vim', "w")
+response = requests.get(
+        'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+vimplugPath = '/home/' + user + '/.local/share/nvim/site/autoload/'
+if not pathlib.Path(vimplugPath).exists():
+    os.makedirs(vimplugPath)
+f = open(vimplugPath + 'plug.vim', "w")
 f.write(response.text)
 f.close()
 
 
 print("Config files successfully installed!")
-
