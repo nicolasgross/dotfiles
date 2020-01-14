@@ -27,7 +27,6 @@ set completeopt=noselect,noinsert,menuone,preview
 set clipboard=unnamedplus
 set textwidth=79
 set colorcolumn=80
-set showtabline=2
 set lazyredraw
 set scrolloff=5
 set conceallevel=2
@@ -55,6 +54,7 @@ if has('nvim')
 	set timeoutlen=500
 	let g:nord_italic=1
 	colorscheme nord
+	set showtabline=2
 else
 	set timeoutlen=2000
 	colorscheme slate
