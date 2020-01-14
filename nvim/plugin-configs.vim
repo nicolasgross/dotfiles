@@ -137,10 +137,10 @@ if has('nvim')
 		\'l': 'focus-window-right',
 		\'L': 'move-window-right',
 		\'o': 'close-other-windows',
-		\'s': 'split-window-below',
-		\'S': 'split-window-below-and-focus',
-		\'v': 'split-window-right',
-		\'V': 'split-window-right-and-focus',
+		\'s': 'split-window-below-and-focus',
+		\'S': 'split-window-below',
+		\'v': 'split-window-right-and-focus',
+		\'V': 'split-window-right',
 		\}
 endif
 

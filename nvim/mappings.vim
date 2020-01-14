@@ -50,10 +50,10 @@ nnoremap <leader>wK :wincmd K<CR>
 nnoremap <leader>wl :wincmd l<CR>
 nnoremap <leader>wL :wincmd L<CR>
 nnoremap <leader>wo :only<CR>
-nnoremap <leader>ws :split<CR>
-nnoremap <leader>wS :split\|wincmd w<CR>
-nnoremap <leader>wv :vsplit<CR>
-nnoremap <leader>wV :vsplit\|wincmd w<CR>
+nnoremap <leader>ws :split\|wincmd w<CR>
+nnoremap <leader>wS :split<CR>
+nnoremap <leader>wv :vsplit\|wincmd w<CR>
+nnoremap <leader>wV :vsplit<CR>
 
 
 " -- completion popup
