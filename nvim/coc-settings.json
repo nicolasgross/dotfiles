@@ -1,5 +1,6 @@
 {
 	"suggest.enablePreselect": false,
+	"rust-analyzer.cargo-watch.allTargets": false,
 	"python.jediEnabled": true,
 	"python.linting.flake8Enabled": true,
 	"python.linting.pylintEnabled": true,
@@ -10,11 +11,6 @@
 			"command": "clangd",
 			"rootPatterns": ["src/", "build/", ".git/", "compile_commands.json"],
 			"filetypes": ["c", "cpp", "cc", "objc", "objcpp"]
-		},
-		"metals": {
-			"command": "metals-vim",
-			"rootPatterns": ["build.sbt"],
-			"filetypes": ["scala", "sbt"]
 		}
 	}
 }
