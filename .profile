@@ -14,4 +14,5 @@ if [ -f "$HOME/.cargo/env" ] ; then
 fi
 
 export EDITOR="/usr/bin/nvim"
+export SHELL="/bin/fish"
 
