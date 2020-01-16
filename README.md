@@ -26,7 +26,7 @@ are shared between vim and neovim.
 1. Clone the repository:  
 `git clone https://github.com/nicolasgross/dotfiles`
 
-2. Adjust the git credentials in `.gitcredentials`
+2. Copy `.gitcredentials-template` to `.gitcredentials` and fill in your data.
 
 3. Run the setup script:  
 `python3 /path/to/cloned/repo/setup.py`
