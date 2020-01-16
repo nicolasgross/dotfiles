@@ -26,13 +26,15 @@ are shared between vim and neovim.
 1. Clone the repository:  
 `git clone https://github.com/nicolasgross/dotfiles`
 
-2. Run the setup script:  
+2. Adjust the git credentials in `.gitcredentials`
+
+3. Run the setup script:  
 `python3 /path/to/cloned/repo/setup.py`
 
-3. Install the neovim plugins. Type inside neovim:  
+4. Install the neovim plugins. Type inside neovim:  
 `:PlugInstall`
 
-4. Optional: Backup your old configuration files, which were copied to
+5. Optional: Backup your old configuration files, which were copied to
 `REPO_ROOT/backup/` by the setup script.
 
 
