@@ -1,14 +1,15 @@
 # Nico's dotfiles
 This is a collection of my dotfiles. They include configuration files for:
-- [git](https://git-scm.com)
+- git
 - [fish](https://fishshell.com)
+- bash
 - [vim](https://www.vim.org) and [neovim](https://neovim.io)
 - environment variables
 
 My (neo)vim configuration is heavily inspired by
 [spacemacs](http://spacemacs.org) and uses 'Space' as the leader key. Vim is
-configured to work without any plugins, whereas neovim is my main editor with
-all plugins enabled. Configuration options that are not related to any plugins
+configured to run without any plugins installed, whereas neovim is configured
+to use some plugins. Configuration options that are not related to any plugins
 are shared between vim and neovim.
 
 
