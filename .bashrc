@@ -5,7 +5,13 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\] \$ '
+PROMPT_DIRTRIM=3
+PS1='\e[1;31m\u \e[1;37mat \e[1;33m\h \e[1;37min \e[1;32m\w\e[1;37m\n'
+PS1+='\$\e[0m '
 
-exec fish
+alias ls='command ls --color'
+alias ll='ls -lF --color'
+alias la='ls -laF --color'
+
+alias grep='grep --color=auto'
 

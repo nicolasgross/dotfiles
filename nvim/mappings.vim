@@ -4,7 +4,7 @@
 let mapleader="\<Space>"
 nnoremap <leader>m :messages<CR>
 " -- applications
-nnoremap <leader>at :terminal<CR>
+nnoremap <leader>at :MyTerminal<CR>
 " -- init.vim
 nnoremap <leader>fie :edit $MYVIMRC<CR>
 nnoremap <leader>fir :source $MYVIMRC<CR>

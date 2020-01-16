@@ -31,6 +31,12 @@ set lazyredraw
 set scrolloff=5
 set conceallevel=2
 
+if filereadable("/bin/fish")
+	command MyTerminal terminal fish
+else
+	command MyTerminal terminal
+endif
+
 " restore terminal cursor on leave
 au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon1
 
