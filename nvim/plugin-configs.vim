@@ -1,7 +1,5 @@
 if has('nvim')
 	"fzf
-	set runtimepath+=/home/nicolas/.config/nvim/dein/repos/github.com/junegunn
-		\/fzf
 	let g:fzf_layout={ 'down': '~30%' }
 	let $FZF_DEFAULT_COMMAND='rg --hidden --files --glob !.git'
 	command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number
