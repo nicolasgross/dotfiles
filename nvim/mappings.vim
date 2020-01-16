@@ -4,7 +4,7 @@
 let mapleader="\<Space>"
 nnoremap <leader>m :messages<CR>
 " -- applications
-nnoremap <leader>at :MyTerminal<CR>
+nnoremap <leader>at :terminal<CR>
 " -- init.vim
 nnoremap <leader>fie :edit $MYVIMRC<CR>
 nnoremap <leader>fir :source $MYVIMRC<CR>
@@ -63,8 +63,9 @@ inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
 
 
 " -- terminal
-"tnoremap <Esc> <C-\><C-n>
-tnoremap <C-[><C-[> <C-\><C-n>
+"tnoremap <C-[><C-[> <C-\><C-n>
+au TermOpen * tnoremap <C-[><C-[> <C-\><C-n>
+au FileType fzf silent! tunmap <C-[><C-[>
 
 
 "plugin dependent:
