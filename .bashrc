@@ -6,8 +6,14 @@
 [[ $- != *i* ]] && return
 
 PROMPT_DIRTRIM=3
-PS1='\n\e[1;31m\u \e[1;37mat \e[1;33m\h \e[1;37min \e[1;32m\w\e[1;37m\n'
-PS1+='\$\e[0m '
+PS1='\n'
+PS1+='\[\e[1;31m\]\u '
+PS1+='\[\e[1;37m\]at '
+PS1+='\[\e[1;33m\]\h '
+PS1+='\[\e[1;37m\]in '
+PS1+='\[\e[1;32m\]\w'
+PS1+='\n'
+PS1+='\[\e[0m\]\$ '
 
 alias ls='command ls --color'
 alias ll='ls -lF --color'
