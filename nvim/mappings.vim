@@ -1,6 +1,4 @@
-"plugin independent:
-
-" -- SPACEMACS EXPERIENCE
+" -- SPACEMACS
 let mapleader="\<Space>"
 nnoremap <leader>m :messages<CR>
 " -- applications
@@ -55,6 +53,8 @@ nnoremap <leader>wS :split<CR>
 nnoremap <leader>wv :vsplit\|wincmd w<CR>
 nnoremap <leader>wV :vsplit<CR>
 
+" -- disable ex mode
+nnoremap Q <Nop>
 
 " -- completion popup
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
@@ -62,15 +62,8 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
 
 
-" -- terminal
-"tnoremap <C-[><C-[> <C-\><C-n>
-au TermOpen * tnoremap <C-[><C-[> <C-\><C-n>
-au FileType fzf silent! tunmap <C-[><C-[>
-
-
-"plugin dependent:
-
 if has('nvim')
+	" -- SPACEMACS
 	command! UpdateVimPlug PlugUpdate | PlugUpgrade
 	nnoremap <leader>u :UpdateVimPlug<CR>
 	" -- buffers
@@ -95,7 +88,13 @@ if has('nvim')
 	nnoremap <leader>tt :NERDTreeToggle<CR>
 	nnoremap <leader>twl :call ToggleLocationList()<CR>
 	nnoremap <leader>twq :call ToggleQuickfixList()<CR>
+
+	" -- terminal
+	au TermOpen * tnoremap <C-[><C-[> <C-\><C-n>
+	au FileType fzf silent! tunmap <C-[><C-[>
 else
+	" -- terminal
+	tnoremap <C-[><C-[> <C-\><C-n>
 	" -- completion
 	inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 endif

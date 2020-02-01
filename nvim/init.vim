@@ -31,6 +31,10 @@ set lazyredraw
 set scrolloff=5
 set conceallevel=2
 
+filetype plugin indent on
+syntax enable
+let g:tex_flavor="latex"
+
 " restore terminal cursor on leave
 au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon1
 
@@ -41,10 +45,6 @@ if !has('gui_running')
 		:checktime
 	endfunc
 endif
-
-filetype plugin indent on
-syntax enable
-let g:tex_flavor="latex"
 
 if has('termguicolors')
 	set termguicolors
@@ -60,10 +60,8 @@ else
 	colorscheme slate
 	highlight ColorColumn guibg=Black
 	set laststatus=2
+	set omnifunc=syntaxcomplete#Complete
 endif
-
-"disable ex mode
-nnoremap Q <Nop>
 
 source ~/.config/nvim/smarttabs.vim
 source ~/.config/nvim/mappings.vim
