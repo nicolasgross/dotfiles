@@ -14,28 +14,29 @@ are shared between vim and neovim.
 
 
 ## Dependencies
+- [python 3](https://www.python.org) +
+  [dotbot](https://github.com/anishathalye/dotbot) (to bootstrap the dotfiles)
 - [git](https://git-scm.com) (for vim-plug in neovim)
-- [python 3](https://www.python.org) (for running the setup script)
-- [fzf](https://github.com/junegunn/fzf) and
-  [ripgrep](https://github.com/BurntSushi/ripgrep) (for fzf in neovim and fish)
 - [nodejs](https://nodejs.org/) and [yarn](https://yarnpkg.com) (for coc in
   neovim)
+- [fzf](https://github.com/junegunn/fzf) and
+  [ripgrep](https://github.com/BurntSushi/ripgrep) (for fzf in neovim and fish)
 
 
 ## Installation
-1. Clone the repository:  
+1. Install dotbot:  
+`pip install --user dotbot`
+
+2. Clone the repository:  
 `git clone https://github.com/nicolasgross/dotfiles`
 
-2. Copy `.gitcredentials-template` to `.gitcredentials` and fill in your data.
+3. Copy `gitcredentials-template` to `gitcredentials` and fill in your data.
 
-3. Run the setup script:  
-`python3 /path/to/cloned/repo/setup.py`
+4. Run dotbot:  
+`dotbot -c REPO_ROOT/install.conf.yaml`  
 
-4. Install the neovim plugins. Type inside neovim:  
+5. Install the neovim plugins. Type inside neovim:  
 `:PlugInstall`
-
-5. Optional: Backup your old configuration files, which were copied to
-`REPO_ROOT/backup/` by the setup script.
 
 
 ## License
