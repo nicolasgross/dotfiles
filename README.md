@@ -1,5 +1,8 @@
 # Nico's dotfiles
-This is a collection of my dotfiles. They include configuration files for:
+What are dotfiles and why do you want them on GitHub? →
+[Check this out](https://dotfiles.github.io/).
+
+This repository contains my dotfiles for:
 - git
 - [fish](https://fishshell.com)
 - bash
