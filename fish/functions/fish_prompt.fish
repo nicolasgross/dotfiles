@@ -66,8 +66,11 @@ function show_git_status -d "Gets the current git status"
 	if not set -q __fish_git_prompt_char_dirtystate
 		set -g __fish_git_prompt_char_dirtystate "+"
 	end
-	if not set -q __fish_git_prompt_char_conflictedstate
-		set -g __fish_git_prompt_char_conflictedstate "x"
+	if not set -q __fish_git_prompt_char_invalidstate
+		set -g __fish_git_prompt_char_invalidstate "x"
+	end
+	if not set -q __fish_git_prompt_char_cleanstate
+		set -g __fish_git_prompt_char_cleanstate "✓"
 	end
 
 	if not set -q __fish_git_prompt_color_branch
