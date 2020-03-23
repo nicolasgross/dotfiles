@@ -5,6 +5,7 @@ if has('nvim')
 	Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'fannheyward/coc-texlab', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'ckipp01/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}

@@ -6,13 +6,5 @@
 	"python.linting.flake8Enabled": true,
 	"python.linting.pylintEnabled": true,
 	"latex.build.onSave": true,
-	"latex.forwardSearch.executable": "/usr/bin/evince",
-	"languageserver": {
-		"clangd": {
-			"command": "clangd",
-			"rootPatterns": ["src/", "build/", ".git/", "compile_commands.json"],
-			"filetypes": ["c", "cpp", "cc", "objc", "objcpp"]
-		}
-	}
+	"latex.forwardSearch.executable": "/usr/bin/evince"
 }
-
