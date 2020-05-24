@@ -1,8 +1,8 @@
 {
 	"suggest.enablePreselect": false,
-	"rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer",
-	"rust-analyzer.cargo-watch.allTargets": false,
-	"python.jediEnabled": true,
+	"rust-analyzer.serverPath": "rust-analyzer",
+	"rust-analyzer.checkOnSave.allTargets": false,
+	"python.jediEnabled": false,
 	"python.linting.flake8Enabled": true,
 	"python.linting.pylintEnabled": true,
 	"latex.build.onSave": true,

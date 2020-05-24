@@ -76,6 +76,9 @@ if has('nvim')
 		\'p': 'previous-buffer',
 		\'Y': 'copy-whole-buffer-to-clipboard',
 		\}
+	let g:lmap.c={'name': '+Coc',
+		\'d': 'show documentation',
+		\}
 	let g:lmap.f={'name': '+Files',
 		\'f': 'find-file',
 		\'F': 'global-find-file',
@@ -105,7 +108,6 @@ if has('nvim')
 		\'a': 'auto-line-breaks',
 		\'b': 'background',
 		\'c': 'colorscheme',
-		\'e': 'error-checking',
 		\'h': 'search-highlighting',
 		\'l': 'cursorline',
 		\'n': 'line-numbers',

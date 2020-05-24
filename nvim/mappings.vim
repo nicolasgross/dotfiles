@@ -63,6 +63,14 @@ inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
 
 
 if has('nvim')
+	function! s:show_documentation()
+	  if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	  else
+		call CocAction('doHover')
+	  endif
+	endfunction
+
 	" -- SPACEMACS
 	command! UpdateVimPlug PlugUpdate | PlugUpgrade
 	nnoremap <leader>u :UpdateVimPlug<CR>
@@ -70,6 +78,8 @@ if has('nvim')
 	nnoremap <leader>bb :Buffers<CR>
 	nnoremap <leader>bc :Bdelete<CR>
 	nnoremap <leader>bC :Bdelete!<CR>
+	" -- coc
+	nnoremap <leader>cd :call <SID>show_documentation()<CR>
 	" -- files
 	nnoremap <leader>ff :Files .<CR>
 	nnoremap <leader>fF :Files ~<CR>
@@ -84,7 +94,6 @@ if has('nvim')
 	nnoremap <leader>sS :Lines<CR>
 	" -- toggles
 	nnoremap <leader>tc :Colors<CR>
-	nnoremap <leader>te :ALEToggle<CR>
 	nnoremap <leader>tt :NERDTreeToggle<CR>
 	nnoremap <leader>twl :call ToggleLocationList()<CR>
 	nnoremap <leader>twq :call ToggleQuickfixList()<CR>
@@ -97,5 +106,6 @@ else
 	tnoremap <C-[><C-[> <C-\><C-n>
 	" -- completion
 	inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+
 endif
 
