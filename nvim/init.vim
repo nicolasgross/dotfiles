@@ -12,7 +12,7 @@ set noet
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set mouse=r
+set mouse=a
 set autoread
 set number
 set spelllang=de_de,en_us
@@ -55,6 +55,7 @@ if has('nvim')
 	let g:nord_italic=1
 	colorscheme nord
 	set showtabline=2
+	set signcolumn=yes
 else
 	set timeoutlen=2000
 	colorscheme slate
