@@ -61,6 +61,17 @@ inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
 
+" -- only mouse scrolling
+:nmap <LeftMouse> <nop>
+:imap <LeftMouse> <nop>
+:vmap <LeftMouse> <nop>
+:nmap <2-LeftMouse> <nop>
+:imap <2-LeftMouse> <nop>
+:vmap <2-LeftMouse> <nop>
+:nmap <RightMouse> <nop>
+:imap <RightMouse> <nop>
+:vmap <RightMouse> <nop>
+
 
 if has('nvim')
 	function! s:show_documentation()

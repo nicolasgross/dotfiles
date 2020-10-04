@@ -64,6 +64,8 @@ else
 	set omnifunc=syntaxcomplete#Complete
 endif
 
+hi! clear Conceal
+
 source ~/.config/nvim/smarttabs.vim
 source ~/.config/nvim/mappings.vim
 source ~/.config/nvim/plugin-configs.vim
