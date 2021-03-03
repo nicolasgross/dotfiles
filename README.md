@@ -7,6 +7,7 @@ This repository contains my dotfiles for:
 - [fish](https://fishshell.com)
 - bash
 - [vim](https://www.vim.org) and [neovim](https://neovim.io)
+- vscode
 - environment variables
 
 My (neo)vim configuration is heavily inspired by
