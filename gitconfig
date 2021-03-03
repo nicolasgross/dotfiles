@@ -61,3 +61,6 @@
 	changed = yellow
 	untracked = cyan
 
+[pull]
+	ff = only
+	rebase = false
