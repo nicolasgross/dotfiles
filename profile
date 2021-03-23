@@ -13,8 +13,9 @@ if [ -f "$HOME/.cargo/env" ] ; then
 	. "$HOME/.cargo/env"
 fi
 
-export EDITOR="/usr/bin/nvim"
-export SHELL="/bin/fish"
-export MOZ_ENABLE_WAYLAND=1
-export MOZ_USE_XINPUT2=1
+export EDITOR="/usr/bin/vim"
+#export SHELL="/bin/fish"
+#export MOZ_ENABLE_WAYLAND=1
+#export MOZ_USE_XINPUT2=1
+export GPG_TTY=$(tty)
 

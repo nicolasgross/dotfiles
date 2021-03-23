@@ -1,18 +1,19 @@
 - clean: ['~']
 
 - create:
-    - ~/.local/share/nvim/site/autoload
+    - ~/.config/fish
+
+- shell:
+    - [git clone https://github.com/oh-my-fish/plugin-foreign-env ~/.config/fish/plugin-foreign-env , Setup plugin-foreign-env for fish]
 
 - link:
     ~/.bashrc: bashrc
     ~/.profile: profile
     ~/.gitconfig: gitconfig
     ~/.gitcredentials: gitcredentials
-    ~/.config/fish: fish
-    ~/.config/nvim: nvim
-    ~/.vimrc: nvim/init.vim
-    ~/.config/Code - OSS/User/settings.json: vscode/settings.json
-    ~/.config/Code - OSS/User/keybindings.json: vscode/keybindings.json
-
-- shell:
-  - [curl -fLo ~/.local/share/nvim/site/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim, Installing vim-plug]
+    ~/.config/fish/config.fish: fish/config.fish
+    ~/.config/fish/fish_variables:
+        force: true
+        path: fish/fish_variables
+    ~/.config/fish/functions: fish/functions
+    ~/.vimrc: vimrc

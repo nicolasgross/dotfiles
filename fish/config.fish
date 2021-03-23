@@ -9,3 +9,6 @@
 set fish_greeting
 set fish_prompt_pwd_dir_length 4
 
+# setup plugin-foreign-env
+set fish_function_path $fish_function_path ~/.config/fish/plugin-foreign-env/functions
+fenv source ~/.profile

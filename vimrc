@@ -2,17 +2,15 @@ if &compatible
 	set nocompatible
 endif
 
-source ~/.config/nvim/plugin-manager.vim
-
 set termencoding=utf-8
 set encoding=utf-8
 set fileencoding=utf-8
 set showmatch
-set noet
+set et
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set mouse=a
+set mouse-=a
 set autoread
 set number
 set spelllang=de_de,en_us
@@ -36,37 +34,23 @@ syntax enable
 let g:tex_flavor="latex"
 
 " restore terminal cursor on leave
-au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon1
-
-"for autoread in terminal mode
-if !has('gui_running')
-	let timer=timer_start(3000, 'AutoreadFunc', {'repeat': -1})
-	func! AutoreadFunc(timer)
-		:checktime
-	endfunc
-endif
+"au VimLeave * set guicursor=a:ver25-Cursor/lCursor-blinkon1
 
 if has('termguicolors')
 	set termguicolors
 endif
 
-if has('nvim')
-	set timeoutlen=500
-	let g:nord_italic=1
-	colorscheme nord
-	set showtabline=2
-	set signcolumn=yes
-else
-	set timeoutlen=2000
-	colorscheme slate
-	highlight ColorColumn guibg=Black
-	set laststatus=2
-	set omnifunc=syntaxcomplete#Complete
-endif
+colorscheme slate
+highlight ColorColumn guibg=Black
+set laststatus=2
+set omnifunc=syntaxcomplete#Complete
 
 hi! clear Conceal
 
-source ~/.config/nvim/smarttabs.vim
-source ~/.config/nvim/mappings.vim
-source ~/.config/nvim/plugin-configs.vim
+" -- disable ex mode
+nnoremap Q <Nop>
 
+" -- completion popup
+"inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+"inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+"inoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
